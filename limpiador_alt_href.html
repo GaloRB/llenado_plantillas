@@ -24,9 +24,11 @@
                 <button type="button" id="btn" class="btn btn-outline-primary">Left</button>
                 <button type="button" id="btn-download" class="btn btn-outline-primary">Descragar archivo HTML</button>
                 <button type="button" id="btn-copy" class="btn btn-outline-primary">Copiar codigo HTML</button>
+                <button type="button" class="btn btn-outline-primary" onclick="location.reload()">Elegir otra pieza</button>
               </div>
-            
-                <!-- <a class="btn btn-primary" href="#" id="bt" role="button">Ver pieza</a> -->
+              <!-- <div class="alert alert-success mt-2 p-2" role="alert">
+                Código copiado
+              </div> -->
         </div>
     </main>
 
@@ -96,27 +98,28 @@
         function showResults(fileName, modifiedCode){
             btnGroup.classList.toggle('d-none');
 
-                // crea contenedores para el código y el contenido de la pieza
-                let container = document.createElement('div');
-                let titleCode = document.createElement('P');
-                let codePreview = document.createElement('P');
-                let preview = document.createElement('P');
+            // crea contenedores para el código y el contenido de la pieza
+            let container = document.createElement('div');
+            let titleCode = document.createElement('P');
+            let codePreview = document.createElement('P');
+            let preview = document.createElement('P');
+            
 
-                // Muestra los datos leídos y "filtrados" a HTML y los agrega a su contenedor para poder ver el código en pantalla
-                titleCode.classList.add('fs-4', 'text-center', 'fw-bold');
-                titleCode.innerHTML = `Código de la piza: ${fileName} <br>`;
-                container.classList.add('fs-6', 'm-5');
-                codePreview.innerHTML = escapeHTML(modifiedCode).replaceAll("\n", "<br>");
-                container.appendChild(titleCode);
-                container.appendChild(codePreview);
-                document.body.appendChild(container);
-                btnView.textContent = 'Ver código de la pieza';
-                highlight(codePreview);
-                console.log(action);
-                //exportCode(modifiedCode, fileName);
+            // Muestra los datos leídos y "filtrados" a HTML y los agrega a su contenedor para poder ver el código en pantalla
+            titleCode.classList.add('fs-4', 'text-center', 'fw-bold');
+            titleCode.innerHTML = `Código de la piza: ${fileName} <br>`;
+            container.classList.add('fs-6', 'm-3');
+            codePreview.innerHTML = escapeHTML(modifiedCode).replaceAll("\n", "<br>");
+            container.appendChild(titleCode);
+            container.appendChild(codePreview);
+            document.body.appendChild(container);
+            btnView.textContent = 'Ver contenido de la pieza';
+            highlight(codePreview);
+            console.log(action);
+            file.value='';
 
-                //condicion para mostrar código o contenido
-                btnView.addEventListener('click', () =>{
+            //condicion para mostrar código o contenido
+            btnView.addEventListener('click', () =>{
                     if(!action){
                         // oculta el código en pantalla, agrega el contenido a su contenedor y lo muestra en pantalla
                         codePreview.style.display = 'none';
@@ -139,9 +142,15 @@
                     }
                     });
 
-                btnDownload.addEventListener('click', ()=>{
-                    exportCode(modifiedCode,fileName);
-                });
+            // descarga el codigo html        
+            btnDownload.addEventListener('click', ()=>{
+                downloadCode(modifiedCode,fileName);
+            });
+
+            // copia el codigo html
+            btnCopy.addEventListener('click', ()=>{
+                copyCode(modifiedCode);
+            });
         }
 
         // Función para escapar entidades html
@@ -166,8 +175,7 @@
         }
 
         // función para descargar el nuevo codigo ya modificado
-        function exportCode (data, fileName) {
-            console.log('yes');
+        function downloadCode (data, fileName) {
             const link = document.createElement("a");
             const contenido = data;
             // instancia para el fichero
@@ -182,6 +190,27 @@
 
             window.URL.revokeObjectURL(url);
         };
+
+        function copyCode(code){
+            navigator.clipboard.writeText(code)
+            .then(() => {
+                console.log('copiado')
+            })
+            .catch(err => {
+                console.error('nel pastel:', err)
+            })
+            const container = document.querySelector('.container');
+            const alert = document.createElement('div');
+            alert.classList.add('alert', 'alert-success', 'mt-3', 'p-2', 'text-center');
+            alert.role = alert;
+            alert.textContent = 'Código copiado';
+            container.appendChild(alert);
+            setTimeout(() => {
+                alert.remove();
+            }, 2000);
+        }
+
+       
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
