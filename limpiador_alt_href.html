@@ -62,40 +62,38 @@
                 const header = code.substring(0,start);
                 // asigna el bloque final de codigo que no se modifica a footer
                 const footer = code.substring(end);
-                // convierte el bloque que se modifica de string a un arreglo de palabras
-                const words = codeToModify.split(' ');
-                let modifiedCode = ''
+                // se alamacenara el nuevo c'odigo ya modificado 
+                let newCode = ''
+            
+               newCode = modifyAlt(codeToModify);
                 
-               modifyWord(words);
-                
-                // une el codigo del header + el codigo del contenido ya modificado + el código del footer
-                modifiedCode = header + words.join(' ') + footer;
+               // une el codigo del header + el codigo del contenido ya modificado + el código del footer
+               newCode = header + newCode + footer;
 
-                showResults(fileName, modifiedCode);
+               console.log(newCode);
+               showResults(fileName, newCode);
 
             };
 
-                file.value = ''; 
 
-                reader.onerror = function(e){
-                    console.log('Valio chetos');
-                }
+            reader.onerror = function(e){
+                console.log('Valio chetos');
+            }
 
-                // Leemos el archivo
-                reader.readAsText(file[0]);
+            // Leemos el archivo
+            reader.readAsText(file[0]);
         }
 
-        // itera y modifica los alts
-        function modifyWord(words){
-            for (let i = 0; i < words.length; i++) {
-                    if(words[i].includes('alt="')){
-                        words[i] = 'alt="___"';
-                    };
-                }
-        }
+        // busca la etiqueta alt y la modifica por alt"___"
+        function modifyAlt(data){
+            let predictUrl = [];
+            const altRegex = /alt="([^"]*)"/g;
+            const modifiedCode = data.replace(altRegex, 'alt="___"');   
+            return modifiedCode;
+        };
 
         // muestra los resultados en pantalla
-        function showResults(fileName, modifiedCode){
+        function showResults(fileName, newCode){
             btnGroup.classList.toggle('d-none');
 
             // crea contenedores para el código y el contenido de la pieza
@@ -109,7 +107,7 @@
             titleCode.classList.add('fs-4', 'text-center', 'fw-bold');
             titleCode.innerHTML = `Código de la piza: ${fileName} <br>`;
             container.classList.add('fs-6', 'm-3');
-            codePreview.innerHTML = escapeHTML(modifiedCode).replaceAll("\n", "<br>");
+            codePreview.innerHTML = escapeHTML(newCode).replaceAll("\n", "<br>");
             container.appendChild(titleCode);
             container.appendChild(codePreview);
             document.body.appendChild(container);
@@ -124,7 +122,7 @@
                         // oculta el código en pantalla, agrega el contenido a su contenedor y lo muestra en pantalla
                         codePreview.style.display = 'none';
                         preview.style.display = 'block';
-                        preview.innerHTML = modifiedCode;
+                        preview.innerHTML = newCode;
                         container.appendChild(preview)
                         document.body.appendChild(container);
                         btnView.textContent = 'Ver código de la pieza';
@@ -144,12 +142,12 @@
 
             // descarga el codigo html        
             btnDownload.addEventListener('click', ()=>{
-                downloadCode(modifiedCode,fileName);
+                downloadCode(newCode,fileName);
             });
 
             // copia el codigo html
             btnCopy.addEventListener('click', ()=>{
-                copyCode(modifiedCode);
+                copyCode(newCode);
             });
         }
 
