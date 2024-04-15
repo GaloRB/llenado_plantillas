@@ -65,7 +65,7 @@
                 // se alamacenara el nuevo c'odigo ya modificado 
                 let newCode = ''
             
-               newCode = modifyAlt(codeToModify);
+               newCode = modifyCode(codeToModify);
                 
                // une el codigo del header + el codigo del contenido ya modificado + el código del footer
                newCode = header + newCode + footer;
@@ -85,7 +85,7 @@
         }
 
         // busca la etiqueta alt y la modifica por alt"___"
-        function modifyAlt(data){
+        function modifyCode(data){
             let predictUrl = [];
             const altRegex = /alt="([^"]*)"/g;
             const modifiedCode = data.replace(altRegex, 'alt="___"');   
