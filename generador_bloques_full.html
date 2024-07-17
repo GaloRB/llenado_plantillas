@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador bloques</title>
+    <style>
+        body {
+            font-family: verdana;
+            margin: 0
+        }
+        
+        header {
+            padding-top: 6px;
+            text-align: center;
+            background-color: #ffffff;
+            overflow: hidden;
+        }
+        
+        nav {
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav ul li {
+            margin: 0;
+            display: inline-block;
+            vertical-align: middle
+        }
+        
+        nav ul li p {
+            text-align: right;
+            margin-right: 10px
+        }
+        
+        main {
+            clear: both;
+            text-align: center;
+        }
+        
+        .oculto {
+            display: none;
+        }
+        
+        a table {
+            border-collapse: collapse;
+            background-color: #cccccc;
+            border: 1px solid white;
+        }
+        
+        a table td {
+            border: 1px solid white;
+        }
+        
+        a table:link,
+        a table:visited {
+            background-color: #cccccc;
+        }
+        
+        a table:active,
+        a table:hover {
+            background-color: #aaaaaa;
+        }
+        
+        h1,
+        h2,
+        p {
+            margin: 8px 0
+        }
+        
+        h1 {
+            font-size: 26px
+        }
+        
+        h2 {
+            font-weight: normal;
+        }
+        
+        .myButton {
+            background-color: #44c767;
+            border-radius: 28px;
+            border: 1px solid #18ab29;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 17px;
+            padding: 16px 31px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #2f6627;
+            margin: 10px auto;
+            display: none;
+        }
+        
+        .myButton:hover {
+            background-color: #5cbf2a;
+        }
+        
+        .formSelect {
+            background-color: #ffffff;
+            border-radius: 6px;
+            border: 1px solid #dcdcdc;
+            cursor: pointer;
+            color: #333333;
+            padding: 8px 12px;
+            text-decoration: none;
+            margin-right: 12px
+        }
+        
+        .btnForm {
+            box-shadow: inset 0px 1px 0px 0px #ffffff;
+            background: linear-gradient(to bottom, #f0f0f0 5%, #cccccc 100%);
+            background-color: #ffffff;
+            border-radius: 6px;
+            border: 1px solid #cccccc;
+            display: inline-block;
+            cursor: pointer;
+            color: #666666;
+            font-family: Arial;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 6px 24px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #ffffff;
+        }
+        
+        .btnForm:hover {
+            background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+            background-color: #f6f6f6;
+        }
+        
+        .btnForm:active {
+            position: relative;
+            top: 1px;
+        }
+        
+        .txtField {
+            padding: 7px 10px 7px 2px;
+            border: 1px solid #aaaaaa;
+            border-radius: 4px;
+        }
+        
+        .txt-azul {
+            color: steelblue;
+        }
+        
+        .txt-amarillo {
+            color: #c9e01b;
+        }
+        
+        .txt-rojo {
+            color: #ff0000;
+        }
+        
+        #bloqueCodigo {
+            max-width: 648px;
+            margin: 0 auto;
+            font-size: 0px;
+            padding: 0 5px;
+        }
+        
+        #formulario {
+            padding-top: 20px;
+            display: none;
+        }
+        
+        .subForm {
+            display: flex;
+            width: 640px;
+            justify-content: center;
+            /* Center horizontally */
+            align-items: center;
+            /* Center vertically */
+            margin: 0 auto 10px auto
+        }
+        
+        .subForm-cell {
+            flex: 1;
+            text-align: left
+        }
+        
+        .menu-link {
+            display: block;
+            border: 12px solid #ffffff;
+        }
+        
+        .seleccionado {
+            border: 12px solid #f6f6f6;
+        }
+        
+        .seleccionadoParent {
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            border-left: 1px solid #999999;
+            border-top: 1px solid #999999;
+            border-right: 1px solid #eeeeee;
+        }
+        
+        .feedback {
+            margin: 10px;
+            display: none;
+        }
+        
+        .alert {
+            width: 320px;
+            padding: 10px;
+            border-radius: 5px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            box-shadow: 5px 5px 5px 0px rgba(128, 128, 128, 0.5);
+        }
+        
+        .notice {
+            background-color: #EFF;
+            border: 1px solid #DEE;
+            color: #9AA;
+        }
+        
+        .warning {
+            background-color: #FDF7DF;
+            border: 1px solid #FEEC6F;
+            color: #C9971C;
+        }
+        
+        .error {
+            background-color: #FEE;
+            border: 1px solid #EDD;
+            color: #A66;
+        }
+    </style>
+</head>
+
+<body style="background-color: #f6f6f6;">
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <p>Selecciona el tipo<br>de bloque para armar</p>
+                </li>
+                <li>
+                    <a href="#bloqueOfertas" class="secciones menu-link" data-seccion="bloqueOfertas" data-orientacionsubcols="horizontal" id="bloqueOfertas" title="Bloque ofertas">
+                        <table width="100">
+                            <tr>
+                                <td rowspan="2" width="50%" height="80"></td>
+                                <td width="50%" height="40"></td>
+                            </tr>
+                            <tr>
+                                <td height="40"></td>
+                            </tr>
+                        </table>
+                    </a>
+                </li>
+                <li>
+                    <a href="#bloqueRompecabezas" class="secciones menu-link" data-seccion="bloqueRompecabezas" data-orientacionsubcols="horizontal" id="bloqueRompecabezas" title="bloque rompecabezas">
+                        <table width="120">
+                            <tr>
+                                <td width="25%" height="40"></td>
+                                <td width="25%" height="40"></td>
+                                <td rowspan="2" width="50%" height="80"></td>
+                            </tr>
+                            <tr>
+                                <td width="25%" height="40"></td>
+                                <td width="25%" height="40"></td>
+                            </tr>
+                        </table>
+                    </a>
+                </li>
+                <li>
+                    <a href="#verticales" class="secciones menu-link" data-seccion="verticales" data-orientacionsubcols="vertical" id="verticales" title="bloque lineas verticales">
+                        <table width="100">
+                            <tr>
+                                <td width="25%"></td>
+                                <td width="25%"></td>
+                                <td width="50%" height="80"></td>
+                            </tr>
+                        </table>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <div id="formulario">
+                <div class="subForm">
+                    <div class="subForm-cell">
+                        Renglones de texto:
+                        <select id="renglonesDropdown" class="formSelect">
+              <option value="0">Ninguno</option>
+              <option value="42" selected>1</option>
+              <option value="58">2</option>
+              <option value="78">3</option>
+            </select>
+                    </div>
+                    <div class="subForm-cell">
+                        <input type="checkbox" value="1" id="invertirCols"> Invertir columnas<br>
+                        <label for="soloImgPrincipal" id="soloImgPrincipal">
+              <input type="checkbox" value="1" name="soloImgPrincipal"> Texto solo en la imagen principal
+            </label>
+                    </div>
+                </div>
+                <label for="imageUrl">URL de imagen principal:</label>
+                <input class="txtField" type="text" id="imageUrl" />
+                <button class="btnForm" onclick="generarHtmlBloque()">Generar bloque</button>
+            </div>
+        </section>
+
+        <section>
+            <div id="bloqueCodigo"></div>
+            <button id="btnCopiar" class="myButton" onclick="copiarHTML()">Copiar HTML al portapapeles</button>
+        </section>
+
+        <aside id="feedback" class="feedback alert error">
+            <p></p>
+        </aside>
+    </main>
+    <script>
+        const bloqueCodigo = document.getElementById("bloqueCodigo");
+        const feedback = document.getElementById("feedback");
+        const formulario = document.getElementById("formulario");
+        const btnCopiar = document.getElementById("btnCopiar");
+        const soloImgPrincipal = document.getElementById("soloImgPrincipal");
+        const invertirCols = document.getElementById("invertirCols");
+        const renglonesDropdown = document.getElementById("renglonesDropdown");
+
+        let orientacionSubCols = bloqueAgenerar = '';
+
+        renglonesDropdown.addEventListener("change", function(e) {
+            soloImgPrincipal.style.display = (e.target.value == "0") ? 'none' : '';
+        });
+
+        // Get all the menu links and sections
+        const menuLinks = document.querySelectorAll('.menu-link');
+        const sections = document.querySelectorAll('.secciones');
+
+        // Add event listeners to the menu links
+        menuLinks.forEach(link => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const selectedSection = link.dataset.seccion; // Get the data-section value
+                orientacionSubCols = link.dataset.orientacionsubcols;
+
+                // Show the selected section and hide the others
+                sections.forEach(section => {
+                    if (section.id === selectedSection) {
+                        section.classList.add("seleccionado");
+                        section.parentElement.classList.add("seleccionadoParent");
+                        bloqueAgenerar = selectedSection;
+                    } else {
+                        section.classList.remove("seleccionado");
+                        section.parentElement.classList.remove("seleccionadoParent");
+                    }
+                });
+
+                feedback.style.display = "none";
+                feedback.classList.remove("notice", "warning", "error");
+                bloqueCodigo.innerHTML = "";
+                btnCopiar.style.display = "none";
+                formulario.style.display = "inherit";
+            });
+        });
+
+        function getImageDimensions(imageUrl) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    const width = img.width;
+                    const height = img.height;
+                    resolve({
+                        width,
+                        height
+                    });
+                };
+
+                img.onerror = () => {
+                    reject(new Error("No se cargó la imagen"));
+                };
+
+                img.src = imageUrl;
+            });
+        }
+
+        const redondearApar = (numero) => (numero % 2 === 0) ? numero : Math.ceil(numero / 2) * 2;
+
+        const copiarHTML = () => {
+            try {
+                const storage = document.createElement('textarea');
+                storage.value = bloqueCodigo.innerHTML.replace(/^\s*$(?:\r\n?|\n)/gm, ""); // Quitar lineas en blanco
+                bloqueCodigo.appendChild(storage);
+                storage.select();
+                storage.setSelectionRange(0, 99999);
+                document.execCommand('copy');
+                bloqueCodigo.removeChild(storage);
+                alert("El HTML ha sido copiado al portapapeles")
+            } catch (err) {
+                console.error('Ni maiz ', err);
+            }
+        }
+
+        function sampleTexts(numRenglones, posicion) {
+            if (numRenglones == 0) return "";
+            let infoDummy = '';
+            const tab = "  ";
+            const colorTxt = (posicion == 1) ? "ffffff" : "355D9B";
+            const tabs = (posicion == 1) ? tab.repeat(7) : tab.repeat(11);
+
+            const extraHtmlOpen = '<!--[if (gte mso 9)|(IE)]><table border="0" cellpadding="6" width="100%"><tr><td align="center"><![endif]-->' + "\n" +
+                tabs + '<span style="font: normal 16px arial; color: #' + colorTxt + '; display: inline-block; margin-top: 10px">' + "\n" + tabs;
+
+            const extraHtmlClose = "\n" + tabs + '</span>' + "\n" +
+                tabs + '<!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->';
+
+            switch (numRenglones) {
+                case 1:
+                    infoDummy = tab + '<b>Nombre producto</b>';
+                    break;
+                case 2:
+                    infoDummy = tab + '<b>' + "\n" +
+                        tab + tabs + '  Nombre producto' + "\n" +
+                        tab + tabs + '</b><br />' + "\n" +
+                        tab + tabs + '<b style="font-size:14px">Comprar ›</b>';
+                    break;
+                case 3:
+                    infoDummy = tab + '<b>' + "\n" +
+                        tab + tabs + '  Nombre producto' + "\n" +
+                        tab + tabs + '</b><br />' + "\n" +
+                        tab + tabs + '<small>' + "\n" +
+                        tab + tabs + '  (Vigencia al 30 de junio 2023)' + "\n" +
+                        tab + tabs + '</small><br />' + "\n" +
+                        tab + tabs + '<b style="font-size:14px">Comprar ›</b>'
+                    break;
+            }
+            return extraHtmlOpen + infoDummy + extraHtmlClose;
+        }
+
+        function codigoBloques() {
+            this.bloqueOfertas = function(params) {
+                let altoImg = params.altoSubImg;
+                let areaTexto = params.textoSecundario;
+                if (params.soloMainImg) {
+                    areaTexto = "";
+                    altoImg = params.altoCelda;
+                }
+
+                const sampleBgColor = "355D9B";
+                const bgColor = ' bgcolor="#' + sampleBgColor + '"';
+                let coLeftCellColor = bgColor;
+                let colRightCellColor = "";
+
+                const colA = `
+          <div style="display: inline-block; width: 100%; max-width: 324px; height: ${params.altoTotal}px; vertical-align: top; background-color: #${sampleBgColor}; text-align: center; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px">
+            <a href="AQUI_VA_EL_URL_DESTINO" style="text-decoration:none; display: block;">
+              <img src="${params.imageUrl}" alt="___" style="width: 100%; height: ${params.mainImgHeight}px" width="324" height="${params.mainImgHeight}" border="0">
+              ${params.textoPrincipal}
+            </a>
+          </div>`;
+
+                const colB = `
+          <div style="display: inline-block; width: 100%; max-width: 324px; height: ${params.altoTotal}px; vertical-align: top;">
+            <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+              <tbody>
+                <tr>
+                  <td valign="top" height="${params.altoCelda}" bgcolor="#f5f5f5" align="center">
+                    <a href="AQUI_VA_EL_URL_DESTINO" style="text-decoration:none; display: block;">
+                      <img src="https://links.coppel.com/custloads/766895328/md_1473538.jpg" alt="___" style="width: 100%" width="324" height="${altoImg}" border="0">
+                      ${areaTexto}
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td valign="top" height="${params.altoCelda}" bgcolor="#f5f5f5" align="center">
+                    <a href="AQUI_VA_EL_URL_DESTINO" style="text-decoration:none; display: block;">
+                      <img src="https://links.coppel.com/custloads/766895328/md_1473539.gif" alt="___" style="width: 100%" width="324" height="${altoImg}" border="0">
+                      ${areaTexto}
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>`;
+
+                let coLeft = colA;
+                let colRight = colB;
+
+                if (invertirCols.checked) {
+                    coLeftCellColor = "";
+                    colRightCellColor = bgColor;
+                    coLeft = colB;
+                    colRight = colA;
+                }
+
+                return `
+        <div style="margin-top: 30px">
+          <!--[if (gte mso 9)|(IE)]><table border="0" cellpadding="0" cellspacing="0" width="648" align="center"><tr><td width="324"${coLeftCellColor}><![endif]-->
+          ${coLeft}
+          <!--[if (gte mso 9)|(IE)]></td><td width="324"${colRightCellColor}><![endif]-->
+          ${colRight}
+          <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+        </div>`;
+            }
+            this.bloqueRompecabezas = function(params) {
+                let contenidoCeldaA = contenidoCeldaB = params.textoSecundario;
+                let paddings = " padding: 10px 5px;";
+                if (params.renglones == 0 || params.soloMainImg) {
+                    paddings = "";
+                    contenidoCeldaA = `<img src="https://links.coppel.com/custloads/766895328/md_1473095.jpg" alt="___" width="162" height="${params.altoCelda}" style="width: 100%;">`;
+                    contenidoCeldaB = `<img src="https://links.coppel.com/custloads/766895328/md_1473097.jpg" alt="___" width="162" height="${params.altoCelda}" style="width: 100%;">`;
+                }
+
+                const sampleBgColor = "535353";
+                const bgColor = ' bgcolor="#' + sampleBgColor + '"';
+                let coLeftCellColor = "";
+                let colRightCellColor = bgColor;
+
+                const colA = `
+          <div style="display: inline-block; width: 100%; max-width: 324px; height: ${params.altoTotal}px; vertical-align: top;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+              <tbody>
+                <tr>
+                  <td align="center" width="50%" height="${params.altoCelda}" valign="middle" bgcolor="#cfcfcf">
+                    <a href="AQUI_VA_EL_URL_DESTINO" style="text-decoration:none; display: block;${paddings}">
+                      ${contenidoCeldaA}
+                    </a>
+                  </td>
+                  <td align="center" width="162" height="${params.altoCelda}">
+                    <a href="AQUI_VA_EL_URL_DESTINO" style="text-decoration:none; display: block;">
+                      <img src="https://links.coppel.com/custloads/766895328/md_1473094.jpg" alt="___" width="162" height="${params.altoCelda}" style="width: 100%;">
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="center" width="162" height="${params.altoCelda}">
+                    <a href="AQUI_VA_EL_URL_DESTINO" style="text-decoration:none; display: block;">
+                      <img src="https://links.coppel.com/custloads/766895328/md_1473098.jpg" alt="___" width="162" height="${params.altoCelda}" style="width: 100%;">
+                    </a>
+                  </td>
+                  <td align="center" width="50%" height="${params.altoCelda}" valign="middle" bgcolor="#cfcfcf">
+                    <a href="AQUI_VA_EL_URL_DESTINO" style="text-decoration:none; display: block;${paddings}">
+                      ${contenidoCeldaB}
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>`;
+
+                const colB = `
+          <div style="display: inline-block; width: 100%; max-width: 324px; height: ${params.altoTotal}px; vertical-align: top; background-color: #${sampleBgColor};">
+            <a href="AQUI_VA_EL_URL_DESTINO" style="text-decoration:none; display: block;">
+              <img src="${params.imageUrl}" alt="___" width="324" height="${params.mainImgHeight}" style="width: 100%; height: ${params.mainImgHeight}px">
+              ${params.textoPrincipal}
+            </a>
+          </div>`;
+
+                let coLeft = colA;
+                let colRight = colB;
+
+                if (invertirCols.checked) {
+                    coLeftCellColor = bgColor;
+                    colRightCellColor = "";
+                    coLeft = colB;
+                    colRight = colA;
+                }
+
+                return `
+        <div style="margin-top: 30px;">
+          <!--[if (gte mso 9)|(IE)]><table border="0" cellpadding="0" cellspacing="0" width="648" align="center"><tr><td width="324" align="center"${coLeftCellColor}><![endif]-->
+          ${coLeft}
+          <!--[if (gte mso 9)|(IE)]></td><td width="324" valign="top"${colRightCellColor}><![endif]-->
+          ${colRight}
+          <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+        </div>`;
+            }
+            this.verticales = function(params) {
+                let altoImg = params.altoSubImg;
+                let areaTexto = params.textoSecundario;
+                if (params.soloMainImg) {
+                    areaTexto = "";
+                    altoImg = params.altoCelda;
+                }
+
+                const sampleBgColor = "355D9B";
+                const bgColor = ' bgcolor="#' + sampleBgColor + '"';
+                let coLeftCellColor = bgColor;
+                let colRightCellColor = "";
+
+                const colA = `
+          <div style="display: inline-block; width: 100%; max-width: 324px; height: ${params.altoTotal}px; vertical-align: top;">
+            <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+              <tbody>
+                <tr>
+                  <td valign="top" width="50%" height="${params.altoCelda}" bgcolor="#f5f5f5" align="center">
+                    <a href="AQUI_VA_EL_URL_DESTINO" style="text-decoration:none; display: block;">
+                      <img src="https://links.coppel.com/custloads/766895328/md_1473538.jpg" alt="___" style="width: 100%" width="324" height="${altoImg}" border="0">
+                      ${areaTexto}
+                    </a>
+                  </td>
+                  <td valign="top" width="50%" height="${params.altoCelda}" bgcolor="#f5f5f5" align="center">
+                    <a href="AQUI_VA_EL_URL_DESTINO" style="text-decoration:none; display: block;">
+                      <img src="https://links.coppel.com/custloads/766895328/md_1423490.jpg" alt="___" style="width: 100%" width="324" height="${altoImg}" border="0">
+                      ${areaTexto}
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>`;
+
+                const colB = `
+          <div style="display: inline-block; width: 100%; max-width: 324px; height: ${params.altoTotal}px; vertical-align: top; background-color: #${sampleBgColor}; text-align: center;">
+            <a href="AQUI_VA_EL_URL_DESTINO" style="text-decoration:none; display: block;">
+              <img src="${params.imageUrl}" alt="___" style="width: 100%; height: ${params.mainImgHeight}px" width="324" height="${params.mainImgHeight}" border="0">
+              ${params.textoPrincipal}
+            </a>
+          </div>`;
+
+                let coLeft = colA;
+                let colRight = colB;
+
+                if (invertirCols.checked) {
+                    coLeftCellColor = "";
+                    colRightCellColor = bgColor;
+                    coLeft = colB;
+                    colRight = colA;
+                }
+
+                return `
+        <div style="margin-top: 30px">
+          <!--[if (gte mso 9)|(IE)]><table border="0" cellpadding="0" cellspacing="0" width="648" align="center"><tr><td width="324"${coLeftCellColor}><![endif]-->
+          ${coLeft}
+          <!--[if (gte mso 9)|(IE)]></td><td width="324"${colRightCellColor}><![endif]-->
+          ${colRight}
+          <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+        </div>`;
+            }
+        }
+        const aGenerarElBloque = new codigoBloques();
+
+        function generarHtmlBloque() {
+            feedback.classList.remove("error", "warning");
+            feedback.classList.add("notice");
+            feedback.style.display = "inherit";
+            feedback.firstElementChild.innerText = "Cargando imagen y generando HTML...";
+
+            const imageUrl = document.getElementById("imageUrl").value;
+            if (imageUrl == "") {
+                feedback.classList.remove("notice");
+                feedback.classList.add("warning");
+                feedback.firstElementChild.innerText = 'Ingresa el URL de la imagen principal';
+                return false;
+            }
+
+            getImageDimensions(imageUrl).then(({
+                width,
+                height
+            }) => {
+                const altoRenglones = Number(renglonesDropdown.value);
+                const mainImgHeight = redondearApar((height * 324) / width);
+                const altoTotal = mainImgHeight + altoRenglones
+                const altoCelda = (orientacionSubCols === "horizontal") ? altoTotal / 2 : altoTotal;
+                const altoSubImg = (orientacionSubCols === "horizontal") ? ((altoTotal / 2) - altoRenglones) : altoTotal - altoRenglones;
+
+                const parametros = {
+                    'renglones': renglonesDropdown.value,
+                    'soloMainImg': soloImgPrincipal.firstElementChild.checked,
+                    'textoPrincipal': sampleTexts(renglonesDropdown.selectedIndex, 1),
+                    'textoSecundario': sampleTexts(renglonesDropdown.selectedIndex, 2),
+                    'altoTotal': altoTotal,
+                    'altoCelda': altoCelda,
+                    'imageUrl': imageUrl,
+                    'mainImgHeight': mainImgHeight,
+                    'altoSubImg': altoSubImg
+                }
+
+                bloqueCodigo.innerHTML = aGenerarElBloque[bloqueAgenerar](parametros);
+                btnCopiar.style.display = "block";
+                feedback.style.display = "none";
+            }).catch((error) => {
+                feedback.classList.remove("notice", "warning");
+                feedback.classList.add("error");
+                feedback.firstElementChild.innerText = error;
+                console.error("Error:", error);
+            });
+        }
+    </script>
+</body>
+
+</html>
