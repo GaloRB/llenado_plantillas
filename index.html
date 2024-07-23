@@ -180,19 +180,20 @@
                 <fieldset>
                     <legend class="text-center">Mediante URL de imaganes</legend>
                     <div class="form-group mt-2">
-                      <label for="exampleInputEmail1">Pega la URL de la imagen 1 (grande)</label>
-                      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Pega aquí la url">
+                      <label for="img-1">Pega la URL de la imagen 1 (grande)</label>
+                      <input type="text" class="form-control" id="img-1" placeholder="Pega aquí la url">
                     </div>
                     <div class="form-group mt-2">
-                        <label for="exampleInputEmail1">Pega la URL de la imagen 2 (chica)</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Pega aquí la url">
+                        <label for="img-2">Pega la URL de la imagen 2 (chica)</label>
+                        <input type="text" class="form-control" id="img-2" placeholder="Pega aquí la url">
                       </div>
                       <div class="form-group mt-2">
-                        <label for="exampleInputEmail1">Pega la URL de la imagen 3 (chica)</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Pega aquí la url">
+                        <label for="img-3">Pega la URL de la imagen 3 (chica)</label>
+                        <input type="text" class="form-control" id="img-3" placeholder="Pega aquí la url">
                       </div>
         
-                    <button type="submit" class="btn btn-success mt-3">Obtener medidas</button>
+                    <button type="submit" class="btn btn-success mt-3">Obtener código con medidas</button>
+                    <button type="button" id="btn-copy3" class="btn btn-primary mt-3 d-none">Copiar codigo HTML</button>
                 </fieldset>
                 </form>
 
@@ -201,7 +202,7 @@
                         <fieldset id="field-set-offersBlock">
                             <div id="text-area-code">
                             <legend class="text-center">Mediante código</legend>
-                            <label for="code" class="form-label mt-1">Pega el código que quieres que tenga las medidas correctas</label>
+                            <label for="code" class="form-label mt-1">Pega el código que quieres que tenga las medidas correctas, si no lo tienes usa el boton "copiar codigo HTML" para obtener la plantilla de ese bloque</label>
                             <textarea class="form-control" id="code" rows="3" placeholder="Pega aquí tu código"></textarea>
                             </div>
                                 
@@ -299,6 +300,7 @@
     const btnDownload = document.querySelector('#btn-download');
     const btnCopy = document.querySelector('#btn-copy');
     const btnCopy2 = document.querySelector('#btn-copy2');
+    const btnCopy3 = document.querySelector('#btn-copy3');
     const btnEdit = document.querySelector('#btn-edit');
     const btnReset = document.querySelector('#btn-reset')
     const form = document.querySelector('#form');
@@ -332,6 +334,7 @@
         if(mainContainerAlts.classList.contains('d-none')){
             mainContainerOffersBlock.classList.add('d-none');
             mainContainerAlts.classList.remove('d-none');
+            clean();
         }else if(!mainContainerAlts.classList.contains('d-none')){
             btnAlts.disable = true;
         }else{
@@ -378,17 +381,20 @@
         
     })
 
-    btnReset.addEventListener('click', ()=>{
+    btnReset.addEventListener('click', clean)
+
+    function clean(){
         label.classList.add('d-none');
         offersCodeText2.classList.add('d-none');
         console.log('que pex');
         formDimensions.reset();
+        formDimensionsImgs.reset();
         while(offerContainer.firstChild){
             offerContainer.removeChild(offerContainer.firstChild);
         }
         textAreaCode.classList.remove('d-none');
         btnGetCode.classList.remove('d-none');
-    })
+    }
 
 
     label.textContent = 'Código de bloque ofertas con medidas ya establecidas (lo puedes copiar para usar como base)';
@@ -408,6 +414,17 @@
     formDimensionsImgs.addEventListener('submit', (e)=>{
         e.preventDefault();
         const inputs = formDimensionsImgs.getElementsByTagName('input');
+        const input1 = document.querySelector('#img-1');
+        const input2 = document.querySelector('#img-2');
+        const input3 = document.querySelector('#img-3');
+
+        
+        if(input1.value.trim() === '' || !input1.value.match(/\.(jpeg|jpg|gif|png)$/i) || input2.value.trim() === '' || !input2.value.match(/\.(jpeg|jpg|gif|png)$/i) || input3.value.trim() === '' || !input3.value.match(/\.(jpeg|jpg|gif|png)$/i)){
+            showAlert('Debés llenar los 3 campos y debe ser una url valida de imagen', 'alert-danger', 3000, e.target.id);
+            return
+        }
+            
+
         for(let i = 0; i < inputs.length; i++){
             Offerimgs.push(inputs[i].value);
         }
@@ -436,13 +453,21 @@
 
         });
         processCode(codeHtml.outerHTML);
+        btnCopy3.classList.remove('d-none');
 
+        
     })
 
     btnCopy2.addEventListener('click', (e)=>{
         console.log(e.target.id);
             copyCode(offersCodeText2.value, e.target.id);
         })
+
+        btnCopy3.addEventListener('click', (e)=>{
+            copyCode(offersCodeText2.value, e.target.id);
+        })
+
+        
 
     function processCode(offersCode){
         let heights = [];
@@ -520,7 +545,7 @@
              
             if(i === 0){    
                 Array.from(imgs).forEach(img=>{
-                img.style.height = imgHeight;
+                img.style.height = imgHeight + 1;
                 img.height = imgHeight;
             });
             }else{
@@ -545,11 +570,10 @@
         offerContainer.appendChild(text);
         offerContainer.appendChild(codeHtml);
         textAreaCode.classList.add('d-none');
-        btnGetCode.classList.add('d-none')
+        btnGetCode.classList.add('d-none');
         btnCopy2.addEventListener('click', ()=>{
             copyCode(codeHtml.outerHTML);
-        })
-       /*  offerContainer.appendChild(codeHtml) */
+        });
     }
 
     let action = null;
@@ -710,7 +734,6 @@
     function copyCode(code, id){
         navigator.clipboard.writeText(code)
         .then(() => {
-            console.log('copiado');
             showAlert('Código HTML copiado', 'alert-success',2000, id);
         })
         .catch(err => {
@@ -725,23 +748,39 @@
                 const containerAlert = document.createElement('DIV');
                 const alert = document.createElement('div');
                 const fieldSetOffersBlock = document.querySelector('#field-set-offersBlock');
+                const test = document.querySelector('#form-dimensions-imgs');
                 alert.classList.add('alert', type, 'mt-3', 'p-2', 'text-center');
                 alert.role = 'alert';
                 alert.textContent = text;
                 containerAlert.appendChild(alert);
                 fieldSetOffersBlock.appendChild(containerAlert);
+                /* test.appendChild(containerAlert); */
+                setTimeout(() => {
+                    alert.remove();
+                }, time);
+            }else if(id === 'form-dimensions-imgs' || id === 'btn-copy3'){
+                console.log('llego');
+                const containerAlert = document.createElement('DIV');
+                const alert = document.createElement('div');
+                const test = document.querySelector('#form-dimensions-imgs');
+                alert.classList.add('alert', type, 'mt-3', 'p-2', 'text-center');
+                alert.role = 'alert';
+                alert.textContent = text;
+                containerAlert.appendChild(alert);
+                test.appendChild(containerAlert);
+                setTimeout(() => {
+                    alert.remove();
+                }, time);
+            }else{
+                const alert = document.createElement('div');
+                alert.classList.add('alert', type, 'mt-3', 'p-2', 'text-center');
+                alert.role = 'alert';
+                alert.textContent = text;
+                containerAlert.appendChild(alert);
                 setTimeout(() => {
                     alert.remove();
                 }, time);
             }
-            const alert = document.createElement('div');
-            alert.classList.add('alert', type, 'mt-3', 'p-2', 'text-center');
-            alert.role = 'alert';
-            alert.textContent = text;
-            containerAlert.appendChild(alert);
-            setTimeout(() => {
-                alert.remove();
-            }, time);
         }
     }
 
