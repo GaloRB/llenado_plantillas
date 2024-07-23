@@ -384,6 +384,8 @@
     btnReset.addEventListener('click', clean)
 
     function clean(){
+        code2.value = '';
+        console.log(code2.value)
         label.classList.add('d-none');
         offersCodeText2.classList.add('d-none');
         console.log('que pex');
@@ -458,8 +460,15 @@
         
     })
 
+   /*  btnCopy2.addEventListener('click', helperCopy);
+
+    function helperCopy(){
+        
+    } */
+
     btnCopy2.addEventListener('click', (e)=>{
         console.log(e.target.id);
+        console.log('primero');
             copyCode(offersCodeText2.value, e.target.id);
         })
 
@@ -537,12 +546,17 @@
         const codeHtml = parsedCode.body.firstChild;
         const div = codeHtml.getElementsByTagName('div');
         const text = document.createElement('p');
+        const href = codeHtml.getElementsByTagName('a');
+
+        Array.from(href).forEach(a =>{
+            console.log(a.href);
+        })
         
 
         Array.from(div).forEach((divs,i)=>{
             const imgs = divs.getElementsByTagName('img');
             const tds = divs.getElementsByTagName('td');
-             
+            
             if(i === 0){    
                 Array.from(imgs).forEach(img=>{
                 img.style.height = imgHeight + 1;
@@ -561,10 +575,12 @@
 
         });
 
+        const finalCode = offersCodeText2.value = codeHtml.outerHTML.replaceAll('&amp;', '&');
+
         label.classList.remove('d-none');
         offersCodeText2.classList.remove('d-none');
         label.textContent = 'Código con medidas ya establecidas copialo y pegalo en tu documento html';
-        offersCodeText2.value = codeHtml.outerHTML;
+       
         text.textContent = "Así quiedaría tu bloque ofertas"
         text.classList.add('text-center', 'fs-4', 'fw-bold');
         offerContainer.appendChild(text);
@@ -572,7 +588,9 @@
         textAreaCode.classList.add('d-none');
         btnGetCode.classList.add('d-none');
         btnCopy2.addEventListener('click', ()=>{
-            copyCode(codeHtml.outerHTML);
+            copyCode(finalCode);
+            console.log('segundo');
+            
         });
     }
 
