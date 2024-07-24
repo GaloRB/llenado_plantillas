@@ -226,7 +226,7 @@
                             <a style="text-decoration: none; display: block;" href="https://www.coppel.com/">
                                 <img src="https://links.coppel.com/custloads/766895328/md_1608342.jpg" border="0" height="470" width="324" style="width: 100%; height: 470px;" alt="Hasta 40% de descuento en laptops y tablets. Pulsa aquí y equípate para el regreso a clases. Abre en pestaña nueva">
                                 <!--[if (gte mso 9)|(IE)]><table border="0" cellpadding="6" width="100%"><tr><td align="center"><![endif]-->
-                                <span style="font: normal 16px helvetica, arial; color: #3456c2; background-color: #ffdb01; border-radius: 13px; padding: 10px 0; margin-top: 4px; display: block; width: 100%">
+                                <span style="font: normal 16px helvetica, arial; color: #3456c2; background-color: #ffdb01; border-radius: 13px; padding: 10px 0; margin: 4px 0; display: block; width: 100%">
                                 <b>
                                     Laptops y tablets
                                 </b><br>
@@ -497,7 +497,6 @@
                     const height = heights.reduce((prev, current) => {
                         return (prev.height > current.height) ? prev : current;
                     }).height;
-
                     const calculatedHeights = calculateHeights(height);
 
                     offersBlock(calculatedHeights, offersCode);
@@ -511,13 +510,15 @@
     }
 
     function calculateHeights(height){
-        const textBlockHeight = 74;
+        const textBlockHeight = 76;
         const originalWidth = 648;
         const blockWidth = 324;
         let maxHeight;
 
         const result = (blockWidth*height)/originalWidth;
         maxHeight = Math.round(result);
+        console.log(result)
+        console.log(maxHeight);
         if(maxHeight % 2 !== 0){
             maxHeight+=1;
         }
@@ -556,8 +557,9 @@
             const tds = divs.getElementsByTagName('td');
             
             if(i === 0){    
+                divs.style.height = div_1_2;
                 Array.from(imgs).forEach(img=>{
-                img.style.height = imgHeight + 1;
+                img.style.height = imgHeight;
                 img.height = imgHeight;
             });
             }else{
