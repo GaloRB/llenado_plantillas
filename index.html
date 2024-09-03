@@ -2,880 +2,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herramienra de ayuda</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Herramienta de ayuda en la maquetación</title>
+    <link rel="stylesheet" href="css/styles.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<style type="text/css">
 
-    div{
-        padding: 0 !important;
-    }
-
-    button{
-        min-width: 238px;
-    }
-
-    /* CSS GMAIL Y OTROS */
-    .encabezado{
-      font-size: 34px;
-    }
-    .tres-col{
-      max-width: 216px;
-    }
-    .icono-tres-col {
-      width: 212px;
-    }
-    .icono-texto {
-      padding: 15px 0
-    }
-    .colIzqMargen{
-      margin: 2px 2px 2px 0;
-      max-width: 322px;
-    }
-    .colDerMargen{
-      margin: 2px 0 2px 2px;
-      max-width: 322px;
-    }
-
-    .cta-hover{
-      background-color: #000000;
-      color:#ffffff;
-    }
-    .cta-hover:hover{
-      background-color: #888888;
-      color:#333333;
-    }
-    .link-banner{
-      padding: 5px 0 0 0
-    }
-
-    .menuLargo{
-    border-right: 1px solid #999999;
-  }
-  
-    
-    @media screen and (max-width: 658px) {
-      .encabezado {
-        font-size: 29px;
-      }
-      .tres-col{
-        max-width: 324px;
-      }
-      .franja {
-        max-width: 324px;
-        margin: 0 auto;
-      }
-      .icono-tres-col {
-        width: 146px;
-      }
-      .colIzqMargen, .colDerMargen{
-        margin: 2px 0;
-        max-width: 324px;
-      }
-      .el-hero{
-        max-width: 480px;
-      }
-      .link-banner{
-        padding: 10px 0 14px 0
-      }
-      .menuLargo{
-      border: none;
-      display: block;
-    }
-    }
-</style>
 <body class="mb-2 bg-body-secondary">
 
     <main>
         <div class="container">
-            <h1 class="display-5 text-center mt-3">Herramienta de ayuda</h1>
+            <h1 class="display-5 text-center mt-3">Herramienta de ayuda en la maquetación</h1>
 
             <div id="main-container-nav" class="container text-center">
                 <div class="btn-group mt-2" role="group" aria-label="Default button group">
                     <button type="button" id="btn-alts" class="btn btn-outline-primary">Limpiar alts</button>
                     <button type="button" id="btn-offersBlock" class="btn btn-outline-primary">Medidas bloque ofertas</button>
                 </div>
-            </div>
-
-            <div class="container mt-4 d-none" id="main-container-alts">
-                <div class="mb-3" id="container-input">
-                    <label for="formFile" class="form-label">Elige tu pieza de correo a la cual le quieres vaciar los alts</label>
-                    <input class="form-control" type="file" id="file" onchange="readFile()">
-                </div>
-
-                <div id="container-alts">
-                    <div id="main-container"></div>
-
-                    <div class="btn-group mt-2" id="btn-group-alts" role="group" aria-label="Default button group">
-                        <button type="button" id="btn-edit" class="btn btn-outline-primary">Editar pieza</button>
-                        <button type="button" id="btn" class="btn btn-outline-primary"></button>
-                        <button type="button" id="btn-download" class="btn btn-outline-primary">Descragar archivo HTML</button>
-                        <button type="button" id="btn-copy" class="btn btn-outline-primary">Copiar codigo HTML</button>
-                        <button type="button" class="btn btn-outline-primary" onclick="location.reload()">Elegir otra pieza</button>
-                    </div>
-
-                    <div id="container-alert"></div>
-
-                    <div class="container">
-                        <form id="form" class="row g-3 d-none">
-                            <fieldset>
-                                <legend class="text-center fs-4">Bloque 1</legend>
-                                <div class="container">
-                                    <div class="row g-3">
-                                        <div class="col">
-                                        <input type="text" class="form-control" id="b1-c1-copy" placeholder="Copy columna 1" aria-label="Copy columna 1">
-                                        <input type="text" class="form-control mt-1" id="b1-c1-valid" placeholder="Vigencia columna 1" aria-label="Vigencia columna 1">
-                                        </div>
-                                        <div class="col">
-                                        <input type="text" class="form-control" id="b1-c2-copy" placeholder="Copy columna 2" aria-label="Copy columna 2">
-                                        <input type="text" class="form-control mt-1" id="b1-c2-valid" placeholder="Vigencia columna 2   " aria-label="Vigencia columna 2">
-                                        </div>
-                                    </div>
-                                    <div class="row g-3 mt-1">
-                                        <div class="col">
-                                        <input type="text" class="form-control" id="b1-c3-copy" placeholder="Copy columna 3" aria-label="Copy columna 3">
-                                        <input type="text" class="form-control mt-1" id="b1-c3-valid" placeholder="Vigencia columna 3" aria-label="Vigencia columna 3">
-                                        </div>
-                                        <div class="col">
-                                        <input type="text" class="form-control" id="b1-c4-copy" placeholder="Copy columna 4" aria-label="Copy columna 4">
-                                        <input type="text" class="form-control mt-1" id="b1-c4-valid" placeholder="Vigencia columna 4   " aria-label="Vigencia columna 4">
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend class="text-center fs-4">Bloque 3</legend>
-                                <div class="container">
-                                    <div class="row g-3">
-                                        <div class="col">
-                                        <input type="text" class="form-control" id="b3-c1-copy" placeholder="Copy columna 1" aria-label="Copy columna 1">
-                                        <input type="text" class="form-control mt-1" id="b3-c1-valid" placeholder="Vigencia columna 1" aria-label="Vigencia columna 1">
-                                        </div>
-                                        <div class="col">
-                                        <input type="text" class="form-control" id="b3-c2-copy" placeholder="Copy columna 2" aria-label="Copy columna 2">
-                                        <input type="text" class="form-control mt-1" id="b3-c2-valid" placeholder="Vigencia columna 2   " aria-label="Vigencia columna 2">
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary mb-3">Guardar cambios</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                
-    
-            </div>
-    
-            <div class="container d-none" id="main-container-offersBlock">
                 <div id="main-container-offersBlock-nav" class="container text-center d-none">
                     <div class="btn-group mt-2" role="group" aria-label="Default button group">
                         <button type="button" id="btn-img" class="btn btn-outline-primary">Mediante URL de imagenes</button>
                         <button type="button" id="btn-block" class="btn btn-outline-primary">Mediante código</button>
                     </div>
                 </div>
-
-                <form id="form-dimensions-imgs" class="d-none">
-                <fieldset>
-                    <legend class="text-center">Mediante URL de imaganes</legend>
-                    <div class="form-group mt-2">
-                      <label for="img-1">Pega la URL de la imagen 1 (grande)</label>
-                      <input type="text" class="form-control" id="img-1" placeholder="Pega aquí la url">
-                    </div>
-                    <div class="form-group mt-2">
-                        <label for="img-2">Pega la URL de la imagen 2 (chica)</label>
-                        <input type="text" class="form-control" id="img-2" placeholder="Pega aquí la url">
-                      </div>
-                      <div class="form-group mt-2">
-                        <label for="img-3">Pega la URL de la imagen 3 (chica)</label>
-                        <input type="text" class="form-control" id="img-3" placeholder="Pega aquí la url">
-                      </div>
-        
-                    <button type="submit" class="btn btn-success mt-3">Obtener código con medidas</button>
-                    <button type="button" id="btn-copy3" class="btn btn-primary mt-3 d-none">Copiar codigo HTML</button>
-                </fieldset>
-                </form>
-
-                <form id="form-dimensions" class="d-none">
-                    <div class="mb-1">
-                        <fieldset id="field-set-offersBlock">
-                            <div id="text-area-code">
-                            <legend class="text-center">Mediante código</legend>
-                            <label for="code" class="form-label mt-1">Pega el código que quieres que tenga las medidas correctas, si no lo tienes usa el boton "copiar codigo HTML" para obtener la plantilla de ese bloque</label>
-                            <textarea class="form-control" id="code" rows="3" placeholder="Pega aquí tu código"></textarea>
-                            </div>
-                                
-                            <div class="col-auto mt-3 text-center">
-                                <button type="submit" id="btn-get-code" class="btn btn-success mt-2">Obtener código con medidas</button>
-                                <button type="button" id="btn-copy2" class="btn btn-primary mt-2">Copiar codigo HTML</button>
-                                <button type="button" id="btn-reset" class="btn btn-danger mt-2">Limpiar</button>
-                            </div>
-                        </fieldset>
-                       
-                        
-                    </div>
-                </form>
-                
-                <label for="code2" class="form-label mt-1 d-none" id="label"></label>
-                    <textarea class="form-control d-none" id="code2" rows="5" placeholder="Código con medidas establecidas"> 
-                        <!-- Bloque ofertas -->
-                        <div>
-                            <!--[if (gte mso 9)|(IE)]><table border="0" cellpadding="0" cellspacing="0" width="648" align="center"><tr><td width="324" valign="top" bgcolor="#ffdb01"><![endif]-->
-                            <div class="colIzqMargen" style="display: inline-block; width: 100%; vertical-align: top;">
-                            <a style="text-decoration: none; display: block;" href="https://www.coppel.com/">
-                                <img src="https://links.coppel.com/custloads/766895328/md_1608342.jpg" border="0" height="470" width="324" style="width: 100%; height: 470px;" alt="Hasta 40% de descuento en laptops y tablets. Pulsa aquí y equípate para el regreso a clases. Abre en pestaña nueva">
-                                <!--[if (gte mso 9)|(IE)]><table border="0" cellpadding="6" width="100%"><tr><td align="center"><![endif]-->
-                                <span style="font: normal 16px helvetica, arial; color: #3456c2; background-color: #ffdb01; border-radius: 13px; padding: 10px 0; margin: 4px 0; display: block; width: 100%">
-                                <b>
-                                    Laptops y tablets
-                                </b><br>
-                                <small>
-                                    (Válido al 31 de julio 2024)
-                                </small><br>
-                                <b style="font-size:14px">Comprar ›</b>
-                                </span>
-                                <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
-                            </a>
-                            </div>
-                            <!--[if (gte mso 9)|(IE)]></td><td width="324" valign="top"><![endif]-->
-                            <div class="colDerMargen" style="display: inline-block; width: 100%; vertical-align: top;">
-                            <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation">
-                                <tbody><tr>
-                                <td align="center" valign="top" height="276">
-                                    <a style="text-decoration: none; display: block;" href="https://www.coppel.com/">
-                                    <img src="https://links.coppel.com/custloads/766895328/md_1608336.jpg" border="0" height="194" width="324" style="width: 100%;" alt="Hasta 40% de descuento en calzado de verano para mujer. Pulsa aquí para ver sandalias, zapatillas y más. Abre en pestaña nueva">
-                                    <!--[if (gte mso 9)|(IE)]><table border="0" cellpadding="6" width="100%"><tr><td align="center" bgcolor="#3456c2"><![endif]-->
-                                    <span style="font: normal 16px helvetica, arial; color: #ffffff; background-color: #3456c2; border-radius: 13px; padding: 10px 0; margin: 4px 0; display: block; width: 100%">
-                                        <b>
-                                        Calzado de verano para mujer
-                                        </b><br>
-                                        <small>
-                                        (Válido al 31 de julio 2024)
-                                        </small><br>
-                                        <b style="font-size:14px">Comprar ›</b>
-                                    </span>
-                                    <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
-                                    </a>
-                                </td>
-                                </tr>
-                                <tr>
-                                <td align="center" valign="top" height="276">
-                                    <a style="text-decoration: none; display: block;" href="https://www.coppel.com/">
-                                    <img src="https://links.coppel.com/custloads/766895328/md_1608344.jpg" border="0" height="194" width="324" style="width: 100%;" alt="Hasta 50% de descuento en ropa para mujer. Pulsa aquí y arma tus outfits. Abre en pestaña nueva">
-                                    <!--[if (gte mso 9)|(IE)]><table border="0" cellpadding="6" width="100%"><tr><td align="center" bgcolor="#3456c2"><![endif]-->
-                                    <span style="font: normal 16px helvetica, arial; color: #ffffff; background-color: #3456c2; border-radius: 13px; padding: 10px 0; margin: 4px 0; display: block; width: 100%">
-                                        <b>
-                                        Ropa para mujer
-                                        </b><br>
-                                        <small>
-                                        (Válido al 31 de julio 2024)
-                                        </small><br>
-                                        <b style="font-size:14px">Comprar ›</b>
-                                    </span>
-                                    <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
-                                    </a>
-                                </td>
-                                </tr>
-                            </tbody></table>
-                            </div>
-                            <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
-                        </div>
-                    </textarea>
-                <div id="offer-container" class="text-center mt-3"></div>
             </div>
 
+            <div class="container" id="container-elements">
+                <div class="container mt-4 d-none" id="main-container-alts">
+                    <form id="form-dimensions-alts" class="d-none">
+                        <div class="mb-3" id="container-input">
+                            <legend class="text-center">Cargando archivo de tu pc</legend>
+                            <label for="formFile" class="form-label">Elige tu pieza de correo a la cual le quieres vaciar los alts</label>
+                            <input class="form-control" type="file" id="file" onchange="handleInputSource()">
+                        </div>
+                        <p class="text-center fs-3">
+                            o
+                        </p>
+                        <div class="mb-1">
+                            <fieldset id="field-set-offersBlock-alts">
+                                <div id="text-area-code-alts">
+                                <legend class="text-center">Mediante código</legend>
+                                <label id="label-txt-code" for="code" class="form-label mt-1"></label>
+                                <textarea class="form-control" id="code-alts" rows="3" placeholder="Pega aquí tu código"></textarea>
+                                </div>
+                            </fieldset>
+                           
+                            
+                        </div>
+                    </form>
+    
+                    <div id="container-alts">
+                        <div id="main-container"></div>
+    
+                        <div class="btn-group mt-2" id="btn-group-alts" role="group" aria-label="Default button group">
+                            <button type="button" id="btn-edit" class="btn btn-outline-primary">Editar pieza</button>
+                            <button type="button" id="btn" class="btn btn-outline-primary"></button>
+                            <button type="button" id="btn-download" class="btn btn-outline-primary">Descragar archivo HTML</button>
+                            <button type="button" id="btn-copy" class="btn btn-outline-primary">Copiar codigo HTML</button>
+                            <button type="button" class="btn btn-outline-primary" onclick="location.reload()">Elegir otra pieza</button>
+                        </div>
+    
+                        <div id="container-alert"></div>
+    
+                        <div class="container">
+                            <form id="form" class="row g-3 d-none">
+                                <fieldset>
+                                    <legend class="text-center fs-4">Bloque 1</legend>
+                                    <div class="container">
+                                        <div class="row g-3">
+                                            <div class="col">
+                                            <input type="text" class="form-control" id="b1-c1-copy" placeholder="Copy columna 1" aria-label="Copy columna 1">
+                                            <input type="text" class="form-control mt-1" id="b1-c1-valid" placeholder="Vigencia columna 1" aria-label="Vigencia columna 1">
+                                            </div>
+                                            <div class="col">
+                                            <input type="text" class="form-control" id="b1-c2-copy" placeholder="Copy columna 2" aria-label="Copy columna 2">
+                                            <input type="text" class="form-control mt-1" id="b1-c2-valid" placeholder="Vigencia columna 2   " aria-label="Vigencia columna 2">
+                                            </div>
+                                        </div>
+                                        <div class="row g-3 mt-1">
+                                            <div class="col">
+                                            <input type="text" class="form-control" id="b1-c3-copy" placeholder="Copy columna 3" aria-label="Copy columna 3">
+                                            <input type="text" class="form-control mt-1" id="b1-c3-valid" placeholder="Vigencia columna 3" aria-label="Vigencia columna 3">
+                                            </div>
+                                            <div class="col">
+                                            <input type="text" class="form-control" id="b1-c4-copy" placeholder="Copy columna 4" aria-label="Copy columna 4">
+                                            <input type="text" class="form-control mt-1" id="b1-c4-valid" placeholder="Vigencia columna 4   " aria-label="Vigencia columna 4">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend class="text-center fs-4">Bloque 3</legend>
+                                    <div class="container">
+                                        <div class="row g-3">
+                                            <div class="col">
+                                            <input type="text" class="form-control" id="b3-c1-copy" placeholder="Copy columna 1" aria-label="Copy columna 1">
+                                            <input type="text" class="form-control mt-1" id="b3-c1-valid" placeholder="Vigencia columna 1" aria-label="Vigencia columna 1">
+                                            </div>
+                                            <div class="col">
+                                            <input type="text" class="form-control" id="b3-c2-copy" placeholder="Copy columna 2" aria-label="Copy columna 2">
+                                            <input type="text" class="form-control mt-1" id="b3-c2-valid" placeholder="Vigencia columna 2   " aria-label="Vigencia columna 2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary mb-3">Guardar cambios</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="container d-none" id="main-container-offersBlock">
+                    
+                    <form id="form-dimensions-imgs" class="d-none">
+                    <fieldset>
+                        <legend class="text-center">Mediante URL de imaganes</legend>
+                        <div class="form-group mt-2">
+                          <label for="img-1">Pega la URL de la imagen 1 (grande)</label>
+                          <input type="text" class="form-control" id="img-1" placeholder="Pega aquí la url">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="img-2">Pega la URL de la imagen 2 (chica)</label>
+                            <input type="text" class="form-control" id="img-2" placeholder="Pega aquí la url">
+                          </div>
+                          <div class="form-group mt-2">
+                            <label for="img-3">Pega la URL de la imagen 3 (chica)</label>
+                            <input type="text" class="form-control" id="img-3" placeholder="Pega aquí la url">
+                          </div>
             
+                        <button type="submit" class="btn btn-success mt-3">Obtener código con medidas</button>
+                        <button type="button" id="btn-copy3" class="btn btn-primary mt-3 d-none">Copiar codigo HTML</button>
+                    </fieldset>
+                    </form>
+    
+                    <form id="form-dimensions" class="d-none">
+                        <div class="mb-1">
+                            <fieldset id="field-set-offersBlock">
+                                <div id="text-area-code">
+                                <legend class="text-center">Mediante código</legend>
+                                <label for="code" class="form-label mt-1">Pega el código que quieres que tenga las medidas correctas, si no lo tienes usa el boton "copiar codigo HTML" para obtener la plantilla de ese bloque</label>
+                                <textarea class="form-control" id="code" rows="3" placeholder="Pega aquí tu código"></textarea>
+                                </div>
+                                    
+                                <!-- <div class="col-auto mt-3 text-center">
+                                    <button type="submit" id="btn-get-code" class="btn btn-success mt-2">Obtener código con medidas</button>
+                                    <button type="button" id="btn-copy2" class="btn btn-primary mt-2">Copiar codigo HTML</button>
+                                    <button type="button" id="btn-reset" class="btn btn-danger mt-2">Limpiar</button>
+                                </div> -->
+                            </fieldset>
+                           
+                            
+                        </div>
+                    </form>
+                    
+                    <div class="">
+                        <label for="code2" class="form-label mt-1 d-none" id="label"></label>
+                        <textarea class="form-control" id="code2" rows="5" placeholder="Código con medidas establecidas"> 
+                            <!-- Bloque ofertas -->
+                            <div>
+                                <!--[if (gte mso 9)|(IE)]><table border="0" cellpadding="0" cellspacing="0" width="648" align="center"><tr><td width="324" valign="top" bgcolor="#ffdb01"><![endif]-->
+                                <div class="colIzqMargen" style="display: inline-block; width: 100%; vertical-align: top;">
+                                <a style="text-decoration: none; display: block;" href="https://www.coppel.com/">
+                                    <img src="https://links.coppel.com/custloads/766895328/md_1608342.jpg" border="0" height="470" width="324" style="width: 100%; height: 470px;" alt="Hasta 40% de descuento en laptops y tablets. Pulsa aquí y equípate para el regreso a clases. Abre en pestaña nueva">
+                                    <!--[if (gte mso 9)|(IE)]><table border="0" cellpadding="6" width="100%"><tr><td align="center"><![endif]-->
+                                    <span style="font: normal 16px helvetica, arial; color: #3456c2; background-color: #ffdb01; border-radius: 13px; padding: 10px 0; margin: 4px 0; display: block; width: 100%">
+                                    <b>
+                                        Laptops y tablets
+                                    </b><br>
+                                    <small>
+                                        (Válido al 31 de julio 2024)
+                                    </small><br>
+                                    <b style="font-size:14px">Comprar ›</b>
+                                    </span>
+                                    <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+                                </a>
+                                </div>
+                                <!--[if (gte mso 9)|(IE)]></td><td width="324" valign="top"><![endif]-->
+                                <div class="colDerMargen" style="display: inline-block; width: 100%; vertical-align: top;">
+                                <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" role="presentation">
+                                    <tbody><tr>
+                                    <td align="center" valign="top" height="276">
+                                        <a style="text-decoration: none; display: block;" href="https://www.coppel.com/">
+                                        <img src="https://links.coppel.com/custloads/766895328/md_1608336.jpg" border="0" height="194" width="324" style="width: 100%;" alt="Hasta 40% de descuento en calzado de verano para mujer. Pulsa aquí para ver sandalias, zapatillas y más. Abre en pestaña nueva">
+                                        <!--[if (gte mso 9)|(IE)]><table border="0" cellpadding="6" width="100%"><tr><td align="center" bgcolor="#3456c2"><![endif]-->
+                                        <span style="font: normal 16px helvetica, arial; color: #ffffff; background-color: #3456c2; border-radius: 13px; padding: 10px 0; margin: 4px 0; display: block; width: 100%">
+                                            <b>
+                                            Calzado de verano para mujer
+                                            </b><br>
+                                            <small>
+                                            (Válido al 31 de julio 2024)
+                                            </small><br>
+                                            <b style="font-size:14px">Comprar ›</b>
+                                        </span>
+                                        <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+                                        </a>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                    <td align="center" valign="top" height="276">
+                                        <a style="text-decoration: none; display: block;" href="https://www.coppel.com/">
+                                        <img src="https://links.coppel.com/custloads/766895328/md_1608344.jpg" border="0" height="194" width="324" style="width: 100%;" alt="Hasta 50% de descuento en ropa para mujer. Pulsa aquí y arma tus outfits. Abre en pestaña nueva">
+                                        <!--[if (gte mso 9)|(IE)]><table border="0" cellpadding="6" width="100%"><tr><td align="center" bgcolor="#3456c2"><![endif]-->
+                                        <span style="font: normal 16px helvetica, arial; color: #ffffff; background-color: #3456c2; border-radius: 13px; padding: 10px 0; margin: 4px 0; display: block; width: 100%">
+                                            <b>
+                                            Ropa para mujer
+                                            </b><br>
+                                            <small>
+                                            (Válido al 31 de julio 2024)
+                                            </small><br>
+                                            <b style="font-size:14px">Comprar ›</b>
+                                        </span>
+                                        <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+                                        </a>
+                                    </td>
+                                    </tr>
+                                </tbody></table>
+                                </div>
+                                <!--[if (gte mso 9)|(IE)]></td></tr></table><![endif]-->
+                            </div>
+                        </textarea>
+                    </div>
+                    
+                    <div id="offer-container" class="text-center mt-3"></div>
+                </div> 
+            </div>
               
         </div>
     </main>
 
-<script>
-    const btnAlts = document.querySelector('#btn-alts');
-    const btnOffersBlock = document.querySelector('#btn-offersBlock');
-    const mainContainerAlts = document.querySelector('#main-container-alts');
-    const mainContainerOffersBlock = document.querySelector('#main-container-offersBlock')
-    const btnGroupAlts = document.querySelector('#btn-group-alts');
-    const btnView = document.querySelector('#btn');
-    const btnDownload = document.querySelector('#btn-download');
-    const btnCopy = document.querySelector('#btn-copy');
-    const btnCopy2 = document.querySelector('#btn-copy2');
-    const btnCopy3 = document.querySelector('#btn-copy3');
-    const btnEdit = document.querySelector('#btn-edit');
-    const btnReset = document.querySelector('#btn-reset')
-    const form = document.querySelector('#form');
-    const mainContainer = document.querySelector('#main-container');
-    const buttonsNav = document.querySelectorAll('.btn-outline-primary');
-    const containerAlert = document.querySelector('#container-alert');
-    const textAreaCode = document.querySelector('#text-area-code');
-    const btnGetCode = document.querySelector('#btn-get-code');
-
-    const formDimensions = document.querySelector('#form-dimensions');
-    const formDimensionsImgs = document.querySelector('#form-dimensions-imgs');
-    const label = document.querySelector('#label');
-    const offersCodeText = document.querySelector('#code');
-    const offersCodeText2 = document.querySelector('#code2');
-    const offerContainer = document.querySelector('#offer-container');
-    const isVisible = document.querySelector('.d-none');
-    const Offerimgs = [];
-    const OffersNav = document.querySelector('#main-container-offersBlock-nav')
-
-    // Agregar focus a botones de menu
-    buttonsNav.forEach(button => {
-        button.addEventListener('click', function() {
-            buttonsNav.forEach(btn => {
-                btn.classList.remove('active');
-            });
-            this.classList.add('active');
-        });
-    });
-
-    btnAlts.addEventListener('click', ()=>{
-        if(mainContainerAlts.classList.contains('d-none')){
-            mainContainerOffersBlock.classList.add('d-none');
-            mainContainerAlts.classList.remove('d-none');
-            clean();
-        }else if(!mainContainerAlts.classList.contains('d-none')){
-            btnAlts.disable = true;
-        }else{
-            mainContainerAlts.classList.add('d-none');
-        }
-    })
-
-    btnOffersBlock.addEventListener('click', ()=>{
-        if(mainContainerOffersBlock.classList.contains('d-none')){
-            mainContainerAlts.classList.add('d-none')
-            mainContainerOffersBlock.classList.remove('d-none');
-        }else if(!mainContainerOffersBlock.classList.contains('d-none')){
-            btnOffersBlock.disable = true;  
-        }else{
-            mainContainerOffersBlock.classList.add('d-none');
-        }
-
-        OffersNav.classList.remove('d-none');
-        
-        const btnUrl = document.querySelector('#btn-img');
-        const btnBlock = document.querySelector('#btn-block');
-
-        btnUrl.addEventListener('click', ()=>{
-        if(formDimensionsImgs.classList.contains('d-none')){
-            formDimensions.classList.add('d-none');
-            formDimensionsImgs.classList.remove('d-none');
-        }else if(!formDimensionsImgs.classList.contains('d-none')){
-            btnAlts.disable = true;
-        }else{
-            formDimensionsImgs.classList.add('d-none');
-        }
-        })
-
-        btnBlock.addEventListener('click', ()=>{
-            if(formDimensions.classList.contains('d-none')){
-                formDimensionsImgs.classList.add('d-none');
-                formDimensions.classList.remove('d-none');
-            }else if(!formDimensions.classList.contains('d-none')){
-                btnAlts.disable = true;
-            }else{
-                formDimensions.classList.add('d-none');
-            }
-        })
-        
-    })
-
-    btnReset.addEventListener('click', clean)
-
-    function clean(){
-        label.classList.add('d-none');
-        offersCodeText2.classList.add('d-none');
-        console.log('que pex');
-        formDimensions.reset();
-        formDimensionsImgs.reset();
-        while(offerContainer.firstChild){
-            offerContainer.removeChild(offerContainer.firstChild);
-        }
-        textAreaCode.classList.remove('d-none');
-        btnGetCode.classList.remove('d-none');
-    }
-
-
-    label.textContent = 'Código de bloque ofertas con medidas ya establecidas (lo puedes copiar para usar como base)';
-
-    formDimensions.addEventListener('submit', (e)=>{
-        e.preventDefault();
-        let offersCode = offersCodeText.value;
-
-        if(offersCodeText.value === ''){
-            showAlert('Debés pegar el código de tu bloque ofertas para generar uno nuevo con las medidas correctas', 'alert-danger', 3000, e.target.id);
-        }else{
-        processCode(offersCode);
-        }
-
-    })  
-
-    formDimensionsImgs.addEventListener('submit', (e)=>{
-        e.preventDefault();
-        const inputs = formDimensionsImgs.getElementsByTagName('input');
-        const input1 = document.querySelector('#img-1');
-        const input2 = document.querySelector('#img-2');
-        const input3 = document.querySelector('#img-3');
-
-        
-        if(input1.value.trim() === '' || !input1.value.match(/\.(jpeg|jpg|gif|png)$/i) || input2.value.trim() === '' || !input2.value.match(/\.(jpeg|jpg|gif|png)$/i) || input3.value.trim() === '' || !input3.value.match(/\.(jpeg|jpg|gif|png)$/i)){
-            showAlert('Debés llenar los 3 campos y debe ser una url valida de imagen', 'alert-danger', 3000, e.target.id);
-            return
-        }
-            
-
-        for(let i = 0; i < inputs.length; i++){
-            Offerimgs.push(inputs[i].value);
-        }
-        console.log(Offerimgs);
-        const parser = new DOMParser();
-        const parsedCode = parser.parseFromString(offersCodeText2.value, 'text/html');
-        const codeHtml = parsedCode.body.firstChild;
-        const div = codeHtml.getElementsByTagName('div');
-        
-
-        Array.from(div).forEach((divs,i)=>{
-            const imgs = divs.getElementsByTagName('img');
-            const tds = divs.getElementsByTagName('td');
-             
-            if(i === 0){    
-                Array.from(imgs).forEach(img=>{
-                img.src = Offerimgs[0];
-                Offerimgs.shift();
-            });
-            }else{
-                Array.from(imgs).forEach(img=>{
-                img.src = Offerimgs.shift();
-            });
-            }
-            
-
-        });
-        processCode(codeHtml.outerHTML);
-        btnCopy3.classList.remove('d-none');
-
-        
-    })
-
-   /*  btnCopy2.addEventListener('click', helperCopy);
-
-    function helperCopy(){
-        
-    } */
-
-    btnCopy2.addEventListener('click', (e)=>{
-        console.log(e.target.id);
-        console.log('primero');
-            copyCode(offersCodeText2.value, e.target.id);
-        })
-
-        btnCopy3.addEventListener('click', (e)=>{
-            copyCode(offersCodeText2.value, e.target.id);
-        })
-
-        
-
-    function processCode(offersCode){
-        let heights = [];
-        let maxHeight;
-        
-
-            const tempDiv = document.createElement('div');
-
-            tempDiv.innerHTML = offersCode;
-
-            const images = tempDiv.getElementsByTagName('img');
-
-            Array.from(images).forEach(imgs=> {
-                imgs.onload = () => {
-                    const originalHeight = imgs.naturalHeight;
-                    heights.push({height: originalHeight});
-                    //console.log(imgs);
-                    if (heights.length === images.length) {
-                    
-                    const height = heights.reduce((prev, current) => {
-                        return (prev.height > current.height) ? prev : current;
-                    }).height;
-                    const calculatedHeights = calculateHeights(height);
-
-                    offersBlock(calculatedHeights, offersCode);
-                }
-            }
-
-                imgs.onerror = () => {
-                    console.log('no se cargaron las imagenes');
-                }
-            });
-    }
-
-    function calculateHeights(height){
-        const textBlockHeight = 76;
-        const originalWidth = 648;
-        const blockWidth = 324;
-        let maxHeight;
-
-        const result = (blockWidth*height)/originalWidth;
-        maxHeight = Math.round(result);
-        console.log(result)
-        console.log(maxHeight);
-        if(maxHeight % 2 !== 0){
-            maxHeight+=1;
-        }
-
-        const div_1_2 = maxHeight+textBlockHeight+8;
-        const tdHeight = div_1_2/2;
-        const tdImgHeight = tdHeight-textBlockHeight-8;
-
-        const objHeights = {
-            div_1_2,
-            imgHeight: maxHeight,
-            tdHeight,
-            tdImgHeight,
-            textBlockHeight
-        }
-
-        return objHeights;
-    }
-
-    function offersBlock(heights, code){
-        const {div_1_2, imgHeight,tdHeight, tdImgHeight, textBlockHeight} = heights;
-        const parser = new DOMParser();
-        const parsedCode = parser.parseFromString(code, 'text/html');
-        const codeHtml = parsedCode.body.firstChild;
-        const div = codeHtml.getElementsByTagName('div');
-        const text = document.createElement('p');
-        const href = codeHtml.getElementsByTagName('a');
-
-        Array.from(href).forEach(a =>{
-            console.log(a.href);
-        })
-        
-
-        Array.from(div).forEach((divs,i)=>{
-            const imgs = divs.getElementsByTagName('img');
-            const tds = divs.getElementsByTagName('td');
-            
-            if(i === 0){    
-                divs.style.height = div_1_2;
-                Array.from(imgs).forEach(img=>{
-                img.style.height = imgHeight;
-                img.height = imgHeight;
-            });
-            }else{
-                divs.style.height = div_1_2;
-                Array.from(tds).forEach(td=>{
-                    td.height=tdHeight;
-                })
-                Array.from(imgs).forEach(img=>{
-                img.height = tdImgHeight;
-            });
-            }
-            
-
-        });
-
-        const finalCode = offersCodeText2.value = codeHtml.outerHTML.replaceAll('&amp;', '&');
-
-        label.classList.remove('d-none');
-        offersCodeText2.classList.remove('d-none');
-        label.textContent = 'Código con medidas ya establecidas copialo y pegalo en tu documento html';
-       
-        text.textContent = "Así quiedaría tu bloque ofertas"
-        text.classList.add('text-center', 'fs-4', 'fw-bold');
-        offerContainer.appendChild(text);
-        offerContainer.appendChild(codeHtml);
-        textAreaCode.classList.add('d-none');
-        btnGetCode.classList.add('d-none');
-        btnCopy2.addEventListener('click', ()=>{
-            copyCode(finalCode);
-            console.log('segundo');
-            
-        });
-    }
-
-    let action = null;
-    btnGroupAlts.classList.add('d-none');
-
-    function readFile() { 
-        formDimensions.classList.add('d-none');  
-        let file = document.querySelector('#file').files;
-            
-        const reader = new FileReader();
-        reader.fileName = file[0].name;
-
-        reader.onload = function(e) {
-
-            // corta el nombre en la extensión de archivo para pooder cambiar el nombre antes de la extensión
-            const fileName = e.target.fileName.replace('.html', '_alts_vacios.html');
-            //guarda el codigo en la variable
-            const code = reader.result;
-            // corta el código apartir de esa linea
-            const start = code.search('<!-- CONTENIDO -->');
-            // termina de cortar el código apartir de esa linea
-            const end = code.search('<!-- === FOOTER === -->');
-            // bloque de codigo que se va a modificar
-            const codeToModify = code.substring(start, end);
-            // asigna el primer bloque de codigo que no se modifica a header
-            const header = code.substring(0,start);
-            // asigna el bloque final de codigo que no se modifica a footer
-            const footer = code.substring(end);
-            // se alamacenara el nuevo c'odigo ya modificado 
-            let newCode = ''
-        
-            newCode = modifyAlts(codeToModify);
-            
-            // une el codigo del header + el codigo del contenido ya modificado + el código del footer
-            newCode = header + newCode + footer;
-
-            showResults(fileName, newCode);
-
-        };
-
-
-        reader.onerror = function(e){
-            console.log('Valio chetos');
-        }
-
-        // Leemos el archivo
-        reader.readAsText(file[0]);
-    }
-
-    // busca la etiqueta alt y la modifica por alt"___"
-    function modifyAlts(data){
-        const altRegex = /alt="([^"]*)"/g;
-        modifiedCode = data.replace(altRegex, 'alt="___"');
-        return modifiedCode;
-    };
-
-    // muestra los resultados en pantalla
-    function showResults(fileName, newCode){
-        const containerInput = document.querySelector('#container-input');
-        containerInput.style.display = 'none';
-        btnGroupAlts.classList.toggle('d-none');
-
-        // crea contenedores para el código y el contenido de la pieza
-        let titleCode = document.createElement('P');
-        let codePreview = document.createElement('P');
-        let preview = document.createElement('P');
-        
-
-        // Muestra los datos leídos y "filtrados" a HTML y los agrega a su contenedor para poder ver el código en pantalla
-        titleCode.classList.add('fs-4', 'text-center', 'fw-bold');
-        titleCode.innerHTML = `Código de la piza: ${fileName} <br>`;
-        mainContainer.classList.add('fs-6', 'm-3');
-        codePreview.innerHTML = escapeHTML(newCode).replaceAll("\n", "<br>");
-        mainContainer.appendChild(titleCode);
-        mainContainer.appendChild(codePreview);
-        document.body.appendChild(mainContainer);
-        btnView.textContent = 'Ver contenido de la pieza';
-        highlight(codePreview);
-        console.log(action);
-        file.value='';
-
-        //condicion para mostrar código o contenido
-        btnView.addEventListener('click', () =>{
-                if(!action){
-                    // oculta el código en pantalla, agrega el contenido a su contenedor y lo muestra en pantalla
-                    codePreview.style.display = 'none';
-                    preview.style.display = 'block';
-                    preview.innerHTML = newCode;
-                    mainContainer.appendChild(preview)
-                    document.body.appendChild(mainContainer);
-                    btnView.textContent = 'Ver código de la pieza';
-                    titleCode.textContent = `Contenido de la piza: ${fileName}`;
-                    action = true;
-                    console.log(action);
-                }else{
-                    // oculta el contenido en pantalla y muestra en pantalla
-                    preview.style.display = 'none'
-                    codePreview.style.display = "block";
-                    btnView.textContent = 'Ver contenido de la pieza';
-                    titleCode.textContent = `Código de la piza: ${fileName}`;
-                    action = false;
-                    console.log(action);
-                }
-                });
-
-        // descarga el codigo html        
-        btnDownload.addEventListener('click', ()=>{
-            downloadCode(newCode,fileName);
-        });
-
-        // copia el codigo html
-        btnCopy.addEventListener('click', ()=>{
-            copyCode(newCode);
-        });
-
-        btnEdit.addEventListener('click', showForm);
-
-    }
-
-    // Función para escapar entidades html
-    function escapeHTML(data) {
-        let fn = function(tag) {
-            let charsToReplace = {
-            '&' : '&amp;',
-            '<' : '&lt;',
-            '>' : '&gt;',
-            '"' : '&#34;'
-            };
-            return charsToReplace[tag] || tag;
-        }
-        return data.replace(/[&<>"]/g, fn);
-    }
-
-    //resalta el texto modificado
-    function highlight(data){
-        const txt = data.innerHTML;
-        const txt2 = txt.replace(/alt="___"/g, '<span class="text-light bg-primary">alt="___"</span>');
-        data.innerHTML = txt2;
-    }
-
-    // función para descargar el nuevo codigo ya modificado
-    function downloadCode (data, fileName) {
-        const link = document.createElement("a");
-        const contenido = data;
-        // instancia para el fichero
-        const blob = new Blob([contenido], {type: "code/html"});
-        // crea la url con el fichero
-        const url = window.URL.createObjectURL(blob);
-        // agrega la url a el enlace
-        link.href = url;
-        // hace descargable y agrega el nombre que tendra el archivo
-        link.download = fileName;
-        link.click();
-
-        window.URL.revokeObjectURL(url);
-    };
-
-    function copyCode(code, id){
-        navigator.clipboard.writeText(code)
-        .then(() => {
-            showAlert('Código HTML copiado', 'alert-success',2000, id);
-        })
-        .catch(err => {
-            console.error('nel pastel:', err)
-        })
-    }
-
-    function showAlert(text,type,time,id){
-        const alertExist = document.querySelector('.alert')
-        if(!alertExist){
-            if(id === 'btn-copy2' || id === 'form-dimensions'){
-                const containerAlert = document.createElement('DIV');
-                const alert = document.createElement('div');
-                const fieldSetOffersBlock = document.querySelector('#field-set-offersBlock');
-                const test = document.querySelector('#form-dimensions-imgs');
-                alert.classList.add('alert', type, 'mt-3', 'p-2', 'text-center');
-                alert.role = 'alert';
-                alert.textContent = text;
-                containerAlert.appendChild(alert);
-                fieldSetOffersBlock.appendChild(containerAlert);
-                /* test.appendChild(containerAlert); */
-                setTimeout(() => {
-                    alert.remove();
-                }, time);
-            }else if(id === 'form-dimensions-imgs' || id === 'btn-copy3'){
-                console.log('llego');
-                const containerAlert = document.createElement('DIV');
-                const alert = document.createElement('div');
-                const test = document.querySelector('#form-dimensions-imgs');
-                alert.classList.add('alert', type, 'mt-3', 'p-2', 'text-center');
-                alert.role = 'alert';
-                alert.textContent = text;
-                containerAlert.appendChild(alert);
-                test.appendChild(containerAlert);
-                setTimeout(() => {
-                    alert.remove();
-                }, time);
-            }else{
-                const alert = document.createElement('div');
-                alert.classList.add('alert', type, 'mt-3', 'p-2', 'text-center');
-                alert.role = 'alert';
-                alert.textContent = text;
-                containerAlert.appendChild(alert);
-                setTimeout(() => {
-                    alert.remove();
-                }, time);
-            }
-        }
-    }
-
-    function showForm(){
-        mainContainer.classList.add('d-none');
-        form.classList.remove('d-none');
-
-        form.addEventListener('submit', validateForm);
-    }
-
-    function validateForm(e){
-        e.preventDefault();
-        const formElements = form.elements;
-        let alert = false;
-        for(let i = 0; i < formElements.length; i++){
-            if(formElements[i].type !== 'submit'){
-                if(formElements[i].value === ''){
-                    alert = true;
-                }
-            }
-        }
-        if(alert){
-            showAlert('No dejes campos vacios, si no tienes el copy agrega un "lorem ipsum" y si no tienes la fecha de vigencia marcala con "xx" o "--"', 'alert-danger', 5500);
-        }
-    }
-
-    /* function editCode(data){
-            console.log(data)
-
-            // variables de texto html copy y fecha de bloque 1 columna 1-4
-            const regB1C1Copy = /<b id="b1-c1-copy">([^<>]*)<\/b>/;
-            const regB1C2Copy = /<b id="b1-c2-copy">([^<>]*)<\/b>/;
-            const regB1C3Copy = /<b id="b1-c3-copy">([^<>]*)<\/b>/;
-            const regB1C4Copy = /<b id="b1-c4-copy">([^<>]*)<\/b>/;
-            const regB1C1Valid = /<small id="b1-c1-valid">([^<>]*)<\/small>/;
-            const regB1C2Valid = /<small id="b1-c2-valid">([^<>]*)<\/small>/;
-            const regB1C3Valid = /<small id="b1-c3-valid">([^<>]*)<\/small>/;
-            const regB1C4Valid = /<small id="b1-c4-valid">([^<>]*)<\/small>/;
-
-            // variables de input copy y fecha de bloque 1 columna 1-4
-            const B1C1Copy = document.querySelector('#b1-c1-copy').value;
-            const B1C2Copy = document.querySelector('#b1-c2-copy').value;
-            const B1C3Copy = document.querySelector('#b1-c3-copy').value;
-            const B1C4Copy = document.querySelector('#b1-c4-copy').value;
-            const B1C1Valid = document.querySelector('#b1-c1-valid').value;
-            const B1C2Valid = document.querySelector('#b1-c2-valid').value;
-            const B1C3Valid = document.querySelector('#b1-c3-valid').value;
-            const B1C4Valid = document.querySelector('#b1-c4-valid').value;
-
-            // variables de texto html copy y valid de bloque 3 columna 1-5
-            const regB3C1Copy = /<b id="b3-c1-copy">([^<>]*)<\/b>/;
-            const regB3C2Copy = /<b id="b3-c2-copy">([^<>]*)<\/b>/;
-            const regB3C3Copy = /<b id="b3-c3-copy">([^<>]*)<\/b>/;
-            const regB3C4Copy = /<b id="b3-c4-copy">([^<>]*)<\/b>/;
-            const regB3C5Copy = /<b id="b3-c5-copy">([^<>]*)<\/b>/;
-            const regB3C1Valid = /<small id="b3-c1-valid">([^<>]*)<\/small>/;
-            const regB3C2Valid = /<small id="b3-c2-valid">([^<>]*)<\/small>/;
-            const regB3C3Valid = /<small id="b3-c3-valid">([^<>]*)<\/small>/;
-            const regB3C4Valid = /<small id="b3-c4-valid">([^<>]*)<\/small>/;  
-            const regB3C5Valid = /<small id="b3-c5-valid">([^<>]*)<\/small>/; 
-
-            const frag = data.match(regB1C1Copy);
-            const frag2 = data.match(regB1C1Fecha);
-            const b1C1Copy = frag ? (console.log(frag[1]), frag[1]) : (console.log('no esta'), null);
-            const b1C1Valid = frag2 ? (console.log(frag2[1]), frag2[1]) : (console.log('no esta'), null);
-            let modifiedCode = '';
-            if(b1C1Copy != null){
-                modifiedCode = data.replace(b1C1Copy, 'Perros').replace(b1C1Fecha, '(Válido para siempre)');
-            }else{
-                console.log('nada');
-            }
-              
-            return modifiedCode; 
-        } */
-
-</script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="js/scripts/scripts.js"></script>
 </body>
 </html>

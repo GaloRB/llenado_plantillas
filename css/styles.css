@@ -1,0 +1,76 @@
+div{
+    padding: 0 !important;
+}
+
+button{
+    min-width: 238px;
+}
+
+/* CSS GMAIL Y OTROS */
+.encabezado{
+  font-size: 34px;
+}
+.tres-col{
+  max-width: 216px;
+}
+.icono-tres-col {
+  width: 212px;
+}
+.icono-texto {
+  padding: 15px 0
+}
+.colIzqMargen{
+  margin: 2px 2px 2px 0;
+  max-width: 322px;
+}
+.colDerMargen{
+  margin: 2px 0 2px 2px;
+  max-width: 322px;
+}
+
+.cta-hover{
+  background-color: #000000;
+  color:#ffffff;
+}
+.cta-hover:hover{
+  background-color: #888888;
+  color:#333333;
+}
+.link-banner{
+  padding: 5px 0 0 0
+}
+
+.menuLargo{
+border-right: 1px solid #999999;
+}
+
+
+@media screen and (max-width: 658px) {
+  .encabezado {
+    font-size: 29px;
+  }
+  .tres-col{
+    max-width: 324px;
+  }
+  .franja {
+    max-width: 324px;
+    margin: 0 auto;
+  }
+  .icono-tres-col {
+    width: 146px;
+  }
+  .colIzqMargen, .colDerMargen{
+    margin: 2px 0;
+    max-width: 324px;
+  }
+  .el-hero{
+    max-width: 480px;
+  }
+  .link-banner{
+    padding: 10px 0 14px 0
+  }
+  .menuLargo{
+  border: none;
+  display: block;
+}
+}
