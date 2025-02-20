@@ -1,7 +1,10 @@
 import Toggle from "./classes/Toggle.js";
 import Notificaction from "./classes/Notificaction.js";
-import {btnAlts, btnOffersBlock, formDimensionsAlts, formDimensionsImgs, btnCopy3, btnGroupAlts, mainContainerAlts, mainContainerOffersBlock,fileAlts,Offerimgs,offersCodeText2} from "./selectors.js"
-import {handleInputSource,copyCode,processCode} from "./functions.js"
+import {btnAlts, btnOffersBlock, formDimensionsAlts, formDimensionsImgs, btnCopy3, btnGroupAlts, mainContainerAlts, mainContainerOffersBlock,fileAlts,Offerimgs,offersCodeText2, btnAddAlts, gapi, gis} from "./selectors.js"
+import {handleInputSource,copyCode,processCode, gapiLoaded, gisLoaded} from "./functions.js"
+
+gapi.addEventListener('load', gapiLoaded());
+gis.addEventListener('load', gisLoaded());
 
 // toggle de nav de alts y bloque de ofertas
 const toggle = new Toggle();
@@ -10,6 +13,10 @@ fileAlts.addEventListener('change', handleInputSource)
 
 btnAlts.addEventListener('click', ()=>{
     toggle.alts(mainContainerAlts, mainContainerOffersBlock,btnOffersBlock,btnAlts, 'Pega aquí el código completo de tu pieza a la cual le quieres vaciar los alts');
+})
+
+btnAddAlts.addEventListener('click', ()=>{
+    toggle.addAlts(mainContainerAlts, mainContainerOffersBlock,btnOffersBlock,btnAlts, 'Pega aquí el código completo de tu pieza a la cual le quieres agregar los alts');
 })
 
 btnOffersBlock.addEventListener('click', ()=>{
@@ -27,7 +34,7 @@ formDimensionsImgs.addEventListener('submit', (e)=>{
     const input3 = document.querySelector('#img-3');
 
         if(input1.value.trim() === '' || !input1.value.match(/\.(jpeg|jpg|gif|png)$/i) || input2.value.trim() === '' || !input2.value.match(/\.(jpeg|jpg|gif|png)$/i) || input3.value.trim() === '' || !input3.value.match(/\.(jpeg|jpg|gif|png)$/i)){
-        new Notificaction('Debés llenar los 3 campos y debe ser una url valida de imagen', 'alert-danger', 3000, e.target.id)
+        new Notificaction('Debes llenar los 3 campos y debe ser una url valida de imagen', 'alert-danger', 3000, e.target.id)
         return;
     }
 

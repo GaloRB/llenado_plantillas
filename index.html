@@ -16,6 +16,7 @@
             <div id="main-container-nav" class="container text-center">
                 <div class="btn-group mt-2" role="group" aria-label="Default button group">
                     <button type="button" id="btn-alts" class="btn btn-outline-primary">Limpiar alts</button>
+                    <button type="button" id="btn-add-alts" class="btn btn-outline-primary">Agregar alts</button>
                     <button type="button" id="btn-offersBlock" class="btn btn-outline-primary">Medidas bloque ofertas</button>
                 </div>
                 <div id="main-container-offersBlock-nav" class="container text-center d-none">
@@ -43,11 +44,15 @@
                                 <legend class="text-center">Mediante código</legend>
                                 <label id="label-txt-code" for="code" class="form-label mt-1"></label>
                                 <textarea class="form-control" id="code-alts" rows="3" placeholder="Pega aquí tu código"></textarea>
+                                <div id="div-modal"></div>
                                 </div>
                             </fieldset>
                            
                             
                         </div>
+                        <!--Add buttons to initiate auth sequence and sign out-->
+                        <!-- <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+                        <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button> -->
                     </form>
     
                     <div id="container-alts">
@@ -233,5 +238,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="js/scripts/scripts.js" type="module"></script>
+<script async defer src="https://apis.google.com/js/api.js" id="gapi"></script>
+<script async defer src="https://accounts.google.com/gsi/client" id="gis"></script>
 </body>
 </html>

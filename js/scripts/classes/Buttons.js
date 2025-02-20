@@ -6,6 +6,7 @@ export default class Buttons{
         this.btnGetCode();
         this.btnCopyCode();
         this.btnClear();
+        this.btnAddAlts();
     }
 
     btnGetCode(){
@@ -24,6 +25,14 @@ export default class Buttons{
         this.btnCopy2.textContent = 'Copiar Codigo';
     }
 
+    btnAddAlts(){
+        this.btnAdd = document.createElement('button');
+        this.btnAdd.type = 'submit';
+        this.btnAdd.id = 'btn-add-alts';
+        this.btnAdd.classList.add('btn', 'btn-success', 'm-1');
+        this.btnAdd.textContent = 'Continuar';
+    }
+
     btnClear(){
         this.btnReset = document.createElement('button');
         this.btnReset.type = 'button';
@@ -33,10 +42,11 @@ export default class Buttons{
         this.btnReset.addEventListener('click', clean);
     }
 
+
     show(ifExist){
         const existButtons = document.querySelector('.btn-container')
         existButtons?.remove();
-        if(ifExist){
+        if(ifExist !== 2 && ifExist){
             console.log('true');
             this.fieldSetOffersBlock = document.querySelector('#field-set-offersBlock');
             this.buttonsContainer = document.createElement('DIV');
@@ -45,6 +55,12 @@ export default class Buttons{
             this.buttonsContainer.appendChild(this.btnCopy2);
             this.buttonsContainer.appendChild(this.btnReset);
             this.fieldSetOffersBlock.appendChild(this.buttonsContainer);
+        }else if(ifExist && ifExist === 2){
+            this.fieldSetOffersBlockAlts = document.querySelector('#field-set-offersBlock-alts');
+            this.buttonsContainer = document.createElement('DIV');
+            this.buttonsContainer.classList.add('col-auto', 'mt-3', 'text-center', 'btn-container');
+            this.buttonsContainer.appendChild(this.btnAdd);
+            this.fieldSetOffersBlockAlts.appendChild(this.buttonsContainer);
         }else{
             console.log('fasle');
             this.fieldSetOffersBlockAlts = document.querySelector('#field-set-offersBlock-alts');
@@ -58,8 +74,11 @@ export default class Buttons{
     }
 
     hide(){
-        if(this.btnGetCode){
+        if(this.btnGetCode || this.btnAdd){
             this.btnGetCode.remove();
+            console.log(this.btnAdd);
+            this.btnAdd.textContent = 'dddd';
+            console.log(this.btnAdd);
         }else{
             console.log('no esta')
         }

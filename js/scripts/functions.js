@@ -2,13 +2,13 @@ import Alts from "./classes/Alts.js";
 import ShowCode from "./classes/ShowCode.js"
 import Buttons from "./classes/Buttons.js";
 import Notificaction from "./classes/Notificaction.js";
-import {label,offersCodeText2,formDimensions,formDimensionsImgs,offerContainer,textAreaCode,offersCodeText,formDimensionsAlts,btnGroupAlts,mainContainer,btnView,btnDownload,btnCopy,btnEdit,form} from "./selectors.js"
+import {label,offersCodeText2,formDimensions,formDimensionsImgs,offerContainer,textAreaCode,offersCodeText,formDimensionsAlts,btnGroupAlts,mainContainer,btnView,btnDownload,btnCopy,btnEdit,form, CLIENT_ID, API_KEY, DISCOVERY_DOC, SCOPES, gapiInited, gisInited, gapi, divModal, btnAddAlts} from "./selectors.js"
 let action = null;
 
 export function isEmpty(){
     const code = document.querySelector('#code-alts').value;
         if(code === ''){
-            new Notificaction('Debés pegar el código de tu pieza para poder limpiar los alts', 'alert-danger', 3000, 'e.target.id')
+            new Notificaction('Debes pegar el código de tu pieza para poder limpiar los alts', 'alert-danger', 3000, 'e.target.id')
         }
 }
 
@@ -72,7 +72,7 @@ export function generateWithCode(e){
 
     if(offersCodeText.value === ''){
         console.log(e.target.id);
-        new Notificaction('Debés pegar el código de tu bloque ofertas para generar uno nuevo con las medidas correctas', 'alert-danger', 3000, e.target.id)
+        new Notificaction('Debes pegar el código de tu bloque ofertas para generar uno nuevo con las medidas correctas', 'alert-danger', 3000, e.target.id)
     }else{
         processCode(offersCode);
     }
@@ -182,13 +182,14 @@ export function setHeights(codeHtml, heights){
 
 /* ************************************************************ */
 
+
 export function handleInputSource(e){
     const file = document.querySelector('#file').files;
     if(file.length === 0){
         e.preventDefault();
     }
     const selected = new Alts(file);
-    selected.isSelected();
+    selected.isSelected(e.target[3].id);
 }
 
 // muestra los resultados en pantalla
@@ -272,7 +273,13 @@ export function escapeHTML(data) {
 //resalta el texto modificado
 export function highlight(data){
     const txt = data.innerHTML;
-    const txt2 = txt.replace(/alt="___"/g, '<span class="text-light bg-primary">alt="___"</span>');
+    const txt2 = txt.replace(/alt="([^"]*)"/g, (match, contenido) => {
+    if (contenido === "___") {
+        return `<span class="text-light bg-primary">${match}</span>`; // Azul si es alt="___"
+    } else {
+        return `<span class="text-light bg-success">${match}</span>`; // Verde si tiene otro contenido
+    }
+});
     data.innerHTML = txt2;
 }
 
@@ -337,6 +344,195 @@ export function validateForm(e){
     if(alert){
     showAlert('No dejes campos vacios, si no tienes el copy agrega un "lorem ipsum" y si no tienes la fecha de vigencia marcala con "xx" o "--"', 'alert-danger', 5500);
     }
+}
+
+
+/* ******************   Funciones para leer gooogle sheet y agregar alts      ********************** */
+
+export function test(){
+    console.log('eyeye');
+}
+
+let tokenClient;
+
+ /**
+       * Callback after api.js is loaded.
+       */
+ export function gapiLoaded() {
+    gapi.load('client', initializeGapiClient);
+  }
+
+  /**
+   * Callback after the API client is loaded. Loads the
+   * discovery doc to initialize the API.
+   */
+ export async function initializeGapiClient() {
+    await gapi.client.init({
+      apiKey: API_KEY,
+      discoveryDocs: [DISCOVERY_DOC],
+    });
+    gapiInited.value = true;
+   /*  maybeEnableButtons(); */
+  }
+
+  /**
+   * Callback after Google Identity Services are loaded.
+   */
+  export function gisLoaded() {
+    tokenClient = google.accounts.oauth2.initTokenClient({
+      client_id: CLIENT_ID,
+      scope: SCOPES
+    });
+    gisInited.value = true;
+   /*  maybeEnableButtons(); */
+  }
+
+  /**
+   * Enables user interaction after all libraries are loaded.
+   */
+  export function maybeEnableButtons() {
+    if (gapiInited && gisInited) {
+      document.getElementById('authorize_button').style.visibility = 'visible';
+    }
+  }
+
+  /**
+   *  Sign in the user upon button click.
+   */
+ export function handleAuthClick(sheet,cells) {
+    tokenClient.callback = async (resp) => {
+      if (resp.error !== undefined) {
+        throw (resp);
+      }
+      /* document.getElementById('signout_button').style.visibility = 'visible';
+      document.getElementById('authorize_button').innerText = 'Refresh'; */
+      await listMajors(sheet,cells);
+    };
+
+    if (gapi.client.getToken() === null) {
+      // Prompt the user to select a Google Account and ask for consent to share their data
+      // when establishing a new session.
+      tokenClient.requestAccessToken({prompt: 'consent'});
+    } else {
+      // Skip display of account chooser and consent dialog for an existing session.
+      tokenClient.requestAccessToken({prompt: ''});
+    }
+  }
+
+  /**
+   *  Sign out the user upon button click.
+   */
+ export  function handleSignoutClick() {
+    const token = gapi.client.getToken();
+    if (token !== null) {
+      google.accounts.oauth2.revoke(token.access_token);
+      gapi.client.setToken('');
+      document.getElementById('content').innerText = '';
+      document.getElementById('authorize_button').innerText = 'Authorize';
+      document.getElementById('signout_button').style.visibility = 'hidden';
+    }
+  }
+
+
+  export async function listMajors(sheet,cells) {
+    let response;
+    console.log(sheet);
+    console.log(cells);
+    try {
+      // Fetch first 10 files
+      response = await gapi.client.sheets.spreadsheets.values.get({
+        spreadsheetId: '1NqSi0AfQ65NFVKoEFGDO9D3wLRaM1VtQwLMcFTJ8BKI',
+        range: `${sheet}!${cells}`,
+      });
+    } catch (err) {
+      console.log(err.message);
+      return;
+    }
+    const range = response.result;
+    if (!range || !range.values || range.values.length == 0) {
+      document.getElementById('content').innerText = 'No values found.';
+      return;
+    }
+    // Flatten to string to display
+    const ar = []
+    range.values.forEach(element => {
+        if(element.length > 0 ){
+            ar.push(element);
+        }
+    });
+    let ar2 = ar.map(sub => 
+        sub.filter(item => item.trim() !== '')
+    )
+    console.log(ar2);
+    const searchText = 'Abre en pestaña nueva';
+    const ar3 = ar2.flat().filter(alt => alt.includes(searchText));
+    console.log(ar3);
+
+    const X = new Alts;
+    X.pasteCode(ar3);
+    /* const output = range.values.reduce(
+        (str, row) => `${str}${row[0]}, ${row[4]}\n`,
+        'Name, Major:\n'); */
+    /* document.getElementById('content').innerText = output; */
+  }
+
+export function validate(){
+    const code = document.querySelector('#code-alts').value;
+    const btnAdd = new Buttons();
+    if(code.length === 0){
+        new Notificaction('Debes pegar el código de tu pieza para poder pegar los alts', 'alert-danger', 3000, 'e.target.id');
+    }else{
+        createModal();
+        //handleAuthClick();
+    }
+}
+
+function createModal(){
+    const modal = `
+    <div class="text-center m-4">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"              data-bs-whatever="@mdo">Seleccionar hoja y celdas</button>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Indica el nombre de la hoja y las celdas</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+            <div class="mb-3">
+                <label for="sheet" class="col-form-label">Nombre de la hoja:</label>
+                <input type="text" class="form-control" id="sheet">
+            </div>
+            <div class="mb-3">
+                <label for="cells" class="col-form-label">Celdas:</label>
+                <textarea class="form-control" id="cells"></textarea>
+            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="button" id="add" data-bs-dismiss="modal" class="btn btn-primary">Agregar alts</button>
+        </div>
+        </div>
+    </div>
+    </div>`
+
+    divModal.innerHTML = modal;
+    getData();
+
+}
+
+function getData(){
+    const sheet = document.querySelector('#sheet');
+    const cells = document.querySelector('#cells');
+    const add = document.querySelector('#add');
+
+    add.addEventListener('click', ()=>{
+        console.log(sheet.value, cells.value);
+        handleAuthClick(sheet.value, cells.value);
+    })
 }
 
 /* function editCode(data){
