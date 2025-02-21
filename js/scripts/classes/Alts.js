@@ -82,7 +82,7 @@ export default class Alts{
         let newCode = ''
         // se almacena el codigo ya modificado sin alts que retorna la función
         newCode = this.modifyAlts(codeToModify,alts);
-        console.log(newCode)
+        //console.log(newCode)
         // une el codigo del header + el codigo del contenido ya modificado + el código del footer
         newCode = header + newCode + footer;
 
@@ -96,7 +96,7 @@ export default class Alts{
         //console.log(typeof(data));
         if (emptyAltRegex.test(data)) {
             // Si ya están vacíos, los llenamos con el contenido de `alts`
-            console.log(data);
+            //console.log(data);
             const parser = new DOMParser();
             const doc = parser.parseFromString(data, "text/html");
             
@@ -104,7 +104,7 @@ export default class Alts{
             this.addAlts(doc,alts);
         
             const newHtmlString = new XMLSerializer().serializeToString(doc);
-            console.log(newHtmlString);
+            //console.log(newHtmlString);
             return newHtmlString; // Devolver el HTML modificado
         } else {
             // Si los `alt` tienen contenido, los vaciamos
