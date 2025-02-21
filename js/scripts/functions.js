@@ -445,7 +445,8 @@ let tokenClient;
         range: `${sheet}!${cells}`,
       });
     } catch (err) {
-      console.log(err.message);
+      console.log(err.body, 'te la pelaste padrino');
+      new Notificaction('Argumento invalido, revisa que sea correcto el noombre de la hoja y de las celdas', 'alert-danger', 5000, 'e.target.id');
       return;
     }
     const range = response.result;
